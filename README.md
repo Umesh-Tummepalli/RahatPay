@@ -462,7 +462,3 @@ RahatPay/
 ---
 
 *RahatPay — Because every delivery partner deserves a safety net.*
-
-> **Phase 1 Submission Checklist**
-> - [x] README.md pushed to repository
-> - [ ] 2-minute strategy and prototype walkthrough video — *[Link to be added]*
