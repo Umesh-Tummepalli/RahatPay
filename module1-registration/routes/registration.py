@@ -16,7 +16,7 @@ Logic:
 
 import logging
 from datetime import date, timedelta
-from typing import Optional
+from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -63,6 +63,42 @@ class KYCInput(BaseModel):
         return self
 
 
+# ── Polygon schemas ───────────────────────────────────────────────────────────
+
+class LatLngPoint(BaseModel):
+    """A single latitude/longitude coordinate."""
+    lat: float = Field(..., ge=-90.0, le=90.0, description="Latitude [-90, 90]")
+    lng: float = Field(..., ge=-180.0, le=180.0, description="Longitude [-180, 180]")
+
+
+class ZoneInput(BaseModel):
+    """
+    Zone entry with an optional polygon (list of lat/lng pairs).
+    The zone_id must correspond to one of zone1_id / zone2_id / zone3_id.
+    If polygon is provided it must have at least 3 points.
+    """
+    zone_id: int = Field(..., description="Must match one of zone1_id / zone2_id / zone3_id")
+    polygon: List[LatLngPoint] = Field(
+        ...,
+        min_length=3,
+        description="Polygon boundary — minimum 3 lat/lng points",
+    )
+
+    @field_validator("zone_id", mode="before")
+    @classmethod
+    def validate_zone_id(cls, v) -> int:
+        if not isinstance(v, int) and not str(v).isdigit():
+            raise ValueError("zone_id must be a positive integer.")
+        return int(v)
+
+    @field_validator("polygon")
+    @classmethod
+    def polygon_has_min_points(cls, v: List[LatLngPoint]) -> List[LatLngPoint]:
+        if len(v) < 3:
+            raise ValueError("Polygon must have at least 3 lat/lng points.")
+        return v
+
+
 class RegisterRiderRequest(BaseModel):
     partner_id: str = Field(..., min_length=3, max_length=100, description="Unique ID from Swiggy/Zomato")
     platform: str = Field(..., pattern="^(swiggy|zomato|dunzo|other)$")
@@ -74,6 +110,13 @@ class RegisterRiderRequest(BaseModel):
     zone2_id: Optional[int] = Field(None, description="Secondary zone (optional)")
     zone3_id: Optional[int] = Field(None, description="Tertiary zone (optional)")
     tier: str = Field(..., pattern="^(kavach|suraksha|raksha)$")
+    # Optional polygon data per zone.  When provided every entry must carry a
+    # zone_id that matches one of zone1_id / zone2_id / zone3_id and a polygon
+    # with at least 3 valid lat/lng points.
+    zones: Optional[List[ZoneInput]] = Field(
+        None,
+        description="Optional polygon data for each zone (zone_id + polygon list).",
+    )
 
     @field_validator("phone")
     @classmethod
@@ -104,9 +147,26 @@ class RegisterRiderRequest(BaseModel):
 
     @model_validator(mode="after")
     def zones_are_distinct(self):
-        zones = [z for z in [self.zone1_id, self.zone2_id, self.zone3_id] if z]
-        if len(zones) != len(set(zones)):
+        zone_ids = [z for z in [self.zone1_id, self.zone2_id, self.zone3_id] if z]
+        if len(zone_ids) != len(set(zone_ids)):
             raise ValueError("Zone IDs must be distinct.")
+
+        # Validate that every ZoneInput.zone_id is one of the declared zone slots.
+        if self.zones:
+            declared = set(zone_ids)
+            seen: set[int] = set()
+            for entry in self.zones:
+                if entry.zone_id not in declared:
+                    raise ValueError(
+                        f"zones[].zone_id={entry.zone_id} does not match any of "
+                        f"zone1_id / zone2_id / zone3_id ({sorted(declared)})."
+                    )
+                if entry.zone_id in seen:
+                    raise ValueError(
+                        f"Duplicate zone_id={entry.zone_id} in zones list."
+                    )
+                seen.add(entry.zone_id)
+
         return self
 
 
@@ -202,6 +262,20 @@ async def register_rider(
             detail=f"Zone IDs {city_mismatch} don't belong to city '{request.city}'. "
                    f"Actual cities: {mismatch_details}",
         )
+
+    # ── Step 3b: Persist polygon data for zones (if provided) ─────────────────
+    # For each ZoneInput entry, serialise the polygon and write it back to the
+    # zone record.  This is additive — it never removes existing zone_id logic.
+    if request.zones:
+        for zone_entry in request.zones:
+            zone_rec = found_zones.get(zone_entry.zone_id)
+            # zone_rec is guaranteed non-None at this point (checked above)
+            polygon_data = [
+                {"lat": point.lat, "lng": point.lng}
+                for point in zone_entry.polygon
+            ]
+            zone_rec.polygon = polygon_data  # type: ignore[assignment]
+            db.add(zone_rec)
 
     # ── Step 4: Call Module 2 → get_baseline ─────────────────────────────────
     # New riders are always in seasoning (no historical data)
