@@ -1,0 +1,35 @@
+# Sensitive files & build artifacts that should NOT be committed
+# ------------------------------------------------------------
+# Python virtual environments
+venv/
+.venv/
+
+# Byte‑code caches
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variable files (API keys, secrets)
+.env
+.env.*
+
+# SQLite / local database files used for testing
+*.sqlite
+*.sqlite3
+*.db
+module3_test.db
+module3-triggers-claims/module3_test.db
+
+# Test scripts that contain mock data (optional – keep if you want to share)
+# test_module3.py   # <-- keep if you want to share, otherwise uncomment
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / editor folders
+.idea/
+.vscode/
+
+# Logs
+*.log
