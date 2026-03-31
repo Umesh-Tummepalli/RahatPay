@@ -154,3 +154,34 @@ def get_seasonal_info(city: str, month: Optional[int] = None):
         "seasonal_factor": factor,
         "seasonal_label": label,
     }
+
+@app.get("/api/rider/{rider_id}/shift-window")
+def get_shift_window(rider_id: int):
+    """
+    Returns a rider's typical shift window derived from last 15 days of activity.
+    Module 3 calls this for eligibility gate 2 (shift overlap check).
+    """
+    import dummy_db as db
+    rider = db.get_rider(rider_id)
+    if not rider:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail=f"Rider {rider_id} not found")
+    return db.get_rider_shift_window(rider_id)
+
+
+@app.get("/api/rider/{rider_id}/daily-activity")
+def get_daily_activity(rider_id: int, days: int = 15):
+    """
+    Returns last N days of daily activity for a rider.
+    Used by Module 3 and Module 5 to simulate the 15-day analysis window.
+    """
+    import dummy_db as db
+    rider = db.get_rider(rider_id)
+    if not rider:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail=f"Rider {rider_id} not found")
+    return {
+        "rider_id": rider_id,
+        "days_requested": days,
+        "activity": db.get_daily_activity(rider_id, last_n_days=days),
+    }

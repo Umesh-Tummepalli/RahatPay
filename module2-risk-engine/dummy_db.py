@@ -1,7 +1,8 @@
 """
 dummy_db.py
 
-Stands in for Module 1's PostgreSQL database until integration day.
+Stands in for Module 1's PostgreSQL database until integration 
+day.
 On integration day, profiler.py swaps this import for real DB queries.
 
 Daily activity covers last 15 days per rider.
