@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  # ── PostgreSQL ──────────────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rahatpay
+      POSTGRES_PASSWORD: rahatpay
+      POSTGRES_DB: rahatpay
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rahatpay -d rahatpay"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ── Module 1 API ─────────────────────────────────────────────────────────────
+  module1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://rahatpay:rahatpay@db:5432/rahatpay
+      DEBUG: "true"
+      ENVIRONMENT: development
+      FIREBASE_MOCK_MODE: "true"
+      MODULE2_MOCK_MODE: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+
+  # ── Test DB (separate DB for pytest) ─────────────────────────────────────────
+  db_test:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rahatpay
+      POSTGRES_PASSWORD: rahatpay
+      POSTGRES_DB: rahatpay_test
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rahatpay -d rahatpay_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
