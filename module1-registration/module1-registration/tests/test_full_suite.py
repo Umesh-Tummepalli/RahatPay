@@ -25,6 +25,7 @@ import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import text
+from sqlalchemy.pool import NullPool
 
 from main import app
 from db.connection import get_db, Base
@@ -32,8 +33,78 @@ from config import settings, TIER_CONFIG
 
 # ── Test DB ───────────────────────────────────────────────────────────────────
 
-TEST_DATABASE_URL = settings.DATABASE_URL.replace("/rahatpay", "/rahatpay_test")
-test_engine = create_async_engine(TEST_DATABASE_URL, echo=False)
+# Use same credentials as DATABASE_URL but a separate DB name (avoid replacing username).
+TEST_DATABASE_URL = settings.DATABASE_URL.rsplit("/", 1)[0] + "/rahatpay_test"
+test_engine = create_async_engine(
+    TEST_DATABASE_URL, echo=False, poolclass=NullPool
+)
+
+
+def split_postgres_sql(sql: str) -> list[str]:
+    """Split SQL into statements for asyncpg (respect --, /* */, ', dollar-quotes)."""
+    out: list[str] = []
+    chunk: list[str] = []
+    i, n = 0, len(sql)
+
+    def skip_line_comment() -> None:
+        nonlocal i
+        while i < n and sql[i] != "\n":
+            i += 1
+
+    def skip_block_comment() -> None:
+        nonlocal i
+        end = sql.find("*/", i + 2)
+        i = n if end == -1 else end + 2
+
+    while i < n:
+        if sql[i : i + 2] == "--":
+            skip_line_comment()
+            continue
+        if sql[i : i + 2] == "/*":
+            skip_block_comment()
+            continue
+        if sql[i] == "'":
+            chunk.append(sql[i])
+            i += 1
+            while i < n:
+                chunk.append(sql[i])
+                if sql[i] == "'":
+                    i += 1
+                    break
+                i += 1
+            continue
+        if sql[i] == "$":
+            start = i
+            i += 1
+            tag_start = i
+            while i < n and sql[i] != "$":
+                i += 1
+            tag = sql[tag_start:i]
+            if i >= n:
+                chunk.extend(sql[start:])
+                break
+            i += 1
+            close = f"${tag}$"
+            endpos = sql.find(close, i)
+            if endpos == -1:
+                chunk.extend(sql[start:])
+                break
+            chunk.extend(sql[start : endpos + len(close)])
+            i = endpos + len(close)
+            continue
+        if sql[i] == ";":
+            stmt = "".join(chunk).strip()
+            chunk = []
+            if stmt:
+                out.append(stmt)
+            i += 1
+            continue
+        chunk.append(sql[i])
+        i += 1
+    tail = "".join(chunk).strip()
+    if tail:
+        out.append(tail)
+    return out
 TestSessionLocal = async_sessionmaker(
     bind=test_engine, class_=AsyncSession,
     expire_on_commit=False, autoflush=False
@@ -65,7 +136,15 @@ async def setup_db():
     """Create clean schema + seed zones before each test."""
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
+        
+        # Read and execute raw schema.sql for accurate constraint/trigger testing
+        import os
+        schema_path = os.path.join(os.path.dirname(__file__), "..", "db", "schema.sql")
+        with open(schema_path, "r", encoding="utf-8") as f:
+            schema_sql = f.read()
+
+        for stmt in split_postgres_sql(schema_sql):
+            await conn.execute(text(stmt))
 
         # Seed polygon-capable zones matching the new schema
         await conn.execute(text("""
@@ -81,9 +160,11 @@ async def setup_db():
         result = await conn.execute(text("SELECT zone_id, city FROM zones ORDER BY zone_id"))
         rows = result.fetchall()
 
-    # Store zone IDs globally for this test run
-    global _zone_ids
-    _zone_ids = {row[1]: row[0] for row in rows}  # city → first zone_id
+    # Per-city zone_id lists (ORDER BY zone_id — do not collapse duplicates)
+    global _zones_by_city
+    _zones_by_city = {}
+    for zid, city in rows:
+        _zones_by_city.setdefault(city, []).append(zid)
 
     yield
 
@@ -91,7 +172,7 @@ async def setup_db():
         await conn.run_sync(Base.metadata.drop_all)
 
 
-_zone_ids: dict = {}
+_zones_by_city: dict[str, list[int]] = {}
 
 
 @pytest_asyncio.fixture
@@ -103,18 +184,23 @@ async def client():
 
 
 def chennai_zone_id() -> int:
-    return _zone_ids.get("Chennai", 1)
+    return _zones_by_city.get("Chennai", [1])[0]
+
+def chennai_zone2_id() -> int:
+    z = _zones_by_city.get("Chennai", [1, 2])
+    return z[1] if len(z) > 1 else z[0]
 
 def mumbai_zone_id() -> int:
-    return _zone_ids.get("Mumbai", 4)
+    return _zones_by_city.get("Mumbai", [4])[0]
 
 def bangalore_zone_id() -> int:
-    return _zone_ids.get("Bangalore", 5)
+    return _zones_by_city.get("Bangalore", [5])[0]
 
 
 def base_payload(**overrides):
     """Default valid registration payload using integer zone IDs."""
-    z_id = chennai_zone_id()
+    z1 = chennai_zone_id()
+    z2 = chennai_zone2_id()
     payload = {
         "partner_id": "SWG-CHN-TEST001",
         "platform": "swiggy",
@@ -122,8 +208,8 @@ def base_payload(**overrides):
         "phone": "+919876543210",
         "kyc": {"type": "aadhaar", "value": "1234"},
         "city": "Chennai",
-        "zone1_id": z_id,
-        "zone2_id": z_id + 1,
+        "zone1_id": z1,
+        "zone2_id": z2,
         "zone3_id": None,
         "tier": "kavach",
     }
@@ -134,7 +220,8 @@ def base_payload(**overrides):
 @pytest_asyncio.fixture
 async def registered_rider(client):
     """Returns (rider_id: int, policy_id: int) from successful registration."""
-    z = chennai_zone_id()
+    z1 = chennai_zone_id()
+    z2 = chennai_zone2_id()
     payload = {
         "partner_id": "SWG-CHN-FIXTURE001",
         "platform": "swiggy",
@@ -142,8 +229,8 @@ async def registered_rider(client):
         "phone": "+919876540001",
         "kyc": {"type": "aadhaar", "value": "9999"},
         "city": "Chennai",
-        "zone1_id": z,
-        "zone2_id": z + 1,
+        "zone1_id": z1,
+        "zone2_id": z2,
         "zone3_id": None,
         "tier": "suraksha",
     }
@@ -263,28 +350,28 @@ class TestRegistration:
         assert "city" in resp.json()["detail"].lower()
 
     @pytest.mark.asyncio
-    async def test_register_duplicate_zone_ids_returns_422(self, client):
+    async def test_register_duplicate_zone_ids_returns_400(self, client):
         """Same zone_id in zone1 and zone2 must fail validation."""
         z = chennai_zone_id()
         p = base_payload(zone1_id=z, zone2_id=z)
         resp = await client.post("/register", json=p)
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
-    async def test_register_invalid_platform_returns_422(self, client):
+    async def test_register_invalid_platform_returns_400(self, client):
         resp = await client.post("/register", json=base_payload(platform="uber"))
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
-    async def test_register_invalid_phone_returns_422(self, client):
+    async def test_register_invalid_phone_returns_400(self, client):
         resp = await client.post("/register", json=base_payload(phone="12345"))
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
-    async def test_register_invalid_pan_format_returns_422(self, client):
+    async def test_register_invalid_pan_format_returns_400(self, client):
         p = base_payload(kyc={"type": "pan", "value": "INVALID_PAN"})
         resp = await client.post("/register", json=p)
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
     async def test_register_valid_pan_kyc(self, client):
@@ -297,11 +384,11 @@ class TestRegistration:
         assert resp.status_code == 201
 
     @pytest.mark.asyncio
-    async def test_register_missing_kyc_returns_422(self, client):
+    async def test_register_missing_kyc_returns_400(self, client):
         p = base_payload()
         del p["kyc"]
         resp = await client.post("/register", json=p)
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
     async def test_register_all_three_tiers(self, client):
@@ -323,19 +410,19 @@ class TestRegistration:
         p = base_payload()
         del p["zone1_id"]
         resp = await client.post("/register", json=p)
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
-    async def test_register_invalid_tier_returns_422(self, client):
+    async def test_register_invalid_tier_returns_400(self, client):
         resp = await client.post("/register", json=base_payload(tier="gold"))
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
     @pytest.mark.asyncio
-    async def test_register_negative_zone_id_returns_422(self, client):
+    async def test_register_negative_zone_id_returns_400(self, client):
         """Negative zone_id must be rejected."""
         p = base_payload(zone1_id=-1)
         resp = await client.post("/register", json=p)
-        assert resp.status_code in (400, 422)
+        assert resp.status_code == 400
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -415,10 +502,10 @@ class TestDashboard:
         assert resp.status_code == 404
 
     @pytest.mark.asyncio
-    async def test_dashboard_invalid_id_type_returns_422(self, client):
-        """String ID (UUID format) should return 422 for integer route."""
+    async def test_dashboard_invalid_id_type_returns_400(self, client):
+        """String ID (UUID format) should return 400 for integer route."""
         resp = await client.get("/rider/not-an-integer/dashboard")
-        assert resp.status_code == 422
+        assert resp.status_code == 400
 
 
 class TestPayoutHistory:
@@ -626,6 +713,15 @@ class TestAdminWorkers:
         assert resp.status_code == 200
         for w in resp.json():
             assert w["tier"] == "suraksha"
+
+    @pytest.mark.asyncio
+    async def test_list_workers_filter_by_zone_id(self, client, registered_rider):
+        rider_id, _ = registered_rider
+        z1 = (await client.get(f"/admin/workers/{rider_id}", headers=ADMIN_HEADERS)).json()["zone1_id"]
+        resp = await client.get(f"/admin/workers?zone_id={z1}", headers=ADMIN_HEADERS)
+        assert resp.status_code == 200
+        for w in resp.json():
+            assert w["zone1_id"] == z1
 
     @pytest.mark.asyncio
     async def test_get_single_worker(self, client, registered_rider):
@@ -948,6 +1044,20 @@ class TestAdminConfig:
         """PATCH with no body should not crash."""
         resp = await client.patch("/admin/config", json={}, headers=ADMIN_HEADERS)
         assert resp.status_code == 200
+
+    @pytest.mark.asyncio
+    async def test_patch_config_persists_for_get(self, client, monkeypatch, tmp_path):
+        from routes import admin as admin_mod
+
+        monkeypatch.setattr(admin_mod, "_RUNTIME_CONFIG_PATH", tmp_path / "admin_cfg.json")
+        await client.patch(
+            "/admin/config",
+            json={"fraud_thresholds": {"high_claim_frequency": 77}},
+            headers=ADMIN_HEADERS,
+        )
+        get_r = await client.get("/admin/config", headers=ADMIN_HEADERS)
+        assert get_r.status_code == 200
+        assert get_r.json()["fraud_thresholds"]["high_claim_frequency"] == 77
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

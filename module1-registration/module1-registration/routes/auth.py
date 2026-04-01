@@ -69,7 +69,7 @@ class VerifyOTPResponse(BaseModel):
     firebase_uid: str
     phone: str
     is_registered: bool
-    rider_id: str | None = None
+    rider_id: int | None = None
     rider_name: str | None = None
     message: str
 
@@ -167,7 +167,7 @@ async def verify_otp(
             firebase_uid=firebase_result["uid"],
             phone=firebase_result["phone"],
             is_registered=True,
-            rider_id=str(rider.id),
+            rider_id=rider.id,
             rider_name=rider.name,
             message="Welcome back! You are already registered.",
         )

@@ -9,14 +9,18 @@ Starts the server, registers all routes, and handles startup/shutdown.
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request, status
+from fastapi import FastAPI, Request, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from sqlalchemy.exc import IntegrityError, OperationalError
+from sqlalchemy import func, select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from config import settings
-from db.connection import init_db, close_db, check_db_health
+from db.connection import init_db, close_db, check_db_health, get_db
+from models.rider import Rider, Zone
+from models.policy import Policy
 from routes.auth import router as auth_router
 from routes.registration import router as registration_router
 from routes.policy import router as policy_router
@@ -88,7 +92,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         field = " → ".join(str(loc) for loc in err["loc"])
         errors.append({"field": field, "message": err["msg"]})
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_400_BAD_REQUEST,
         content={"detail": "Validation error", "errors": errors},
     )
 
@@ -141,6 +145,37 @@ async def health_check():
     }
 
 
+@app.get("/health/details", tags=["Health"])
+async def health_details(db: AsyncSession = Depends(get_db)):
+    """Extended health: DB counts for demos and debugging."""
+    db_healthy = await check_db_health()
+    if not db_healthy:
+        return {
+            "db_status": "disconnected",
+            "total_riders": None,
+            "total_policies": None,
+            "total_zones": None,
+        }
+    try:
+        nr = (await db.execute(select(func.count()).select_from(Rider))).scalar() or 0
+        np = (await db.execute(select(func.count()).select_from(Policy))).scalar() or 0
+        nz = (await db.execute(select(func.count()).select_from(Zone))).scalar() or 0
+        return {
+            "db_status": "connected",
+            "total_riders": int(nr),
+            "total_policies": int(np),
+            "total_zones": int(nz),
+        }
+    except Exception as e:
+        logger.warning("health/details count query failed: %s", e)
+        return {
+            "db_status": "degraded",
+            "total_riders": None,
+            "total_policies": None,
+            "total_zones": None,
+        }
+
+
 @app.get("/", tags=["Meta"])
 async def root():
     return {
@@ -148,6 +183,7 @@ async def root():
         "version": settings.APP_VERSION,
         "docs": "/docs",
         "health": "/health",
+        "health_details": "/health/details",
         "endpoints": {
             "auth": ["/auth/send-otp", "/auth/verify-otp"],
             "registration": ["/register"],

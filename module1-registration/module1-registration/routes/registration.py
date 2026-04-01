@@ -28,7 +28,7 @@ from db.connection import get_db
 from models.rider import Rider, Zone
 from models.policy import Policy
 from config import TIER_CONFIG, settings
-from integrations.module2_adapter import get_baseline, calculate_premium
+from integrations.module2_adapter import get_baseline, calculate_premium, BaselineResult
 
 router = APIRouter(tags=["Registration"])
 logger = logging.getLogger(__name__)
@@ -116,6 +116,15 @@ class RegisterRiderRequest(BaseModel):
     zones: Optional[List[ZoneInput]] = Field(
         None,
         description="Optional polygon data for each zone (zone_id + polygon list).",
+    )
+    demo_income_override: Optional[float] = Field(
+        None,
+        ge=0.0,
+        le=1_000_000.0,
+        description=(
+            "Demo/QA only: use this weekly income instead of Module 2 baseline for premium. "
+            "Ignored when ALLOW_DEMO_INCOME_OVERRIDE is false or in production."
+        ),
     )
 
     @field_validator("phone")
@@ -290,6 +299,30 @@ async def register_rider(
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Unable to fetch baseline data. Please try again.",
+        )
+
+    if request.demo_income_override is not None:
+        if settings.ENVIRONMENT == "production" or not settings.ALLOW_DEMO_INCOME_OVERRIDE:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="demo_income_override is not enabled for this environment.",
+            )
+        hours = (
+            float(baseline.hours)
+            if baseline.hours and float(baseline.hours) > 0
+            else 40.0
+        )
+        inc = float(request.demo_income_override)
+        baseline = BaselineResult(
+            income=inc,
+            hours=hours,
+            hourly_rate=round(inc / hours, 2) if hours > 0 else 0.0,
+            is_provisional=True,
+        )
+        logger.info(
+            "Registration demo_income_override applied: income=%s (partner_id=%s)",
+            inc,
+            request.partner_id,
         )
 
     # ── Step 5: Call Module 2 → calculate_premium ────────────────────────────

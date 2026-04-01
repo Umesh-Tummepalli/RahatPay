@@ -1,0 +1,6 @@
+{
+  "fraud_thresholds": {
+    "high_claim_frequency": 5
+  },
+  "_last_update_message": "Updated for test"
+}

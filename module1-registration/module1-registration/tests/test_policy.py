@@ -14,13 +14,14 @@ import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy import text
+from sqlalchemy.pool import NullPool
 
 from main import app
 from db.connection import get_db, Base
 from config import settings, TIER_CONFIG
 
-TEST_DATABASE_URL = settings.DATABASE_URL.replace("/rahatpay", "/rahatpay_test")
-test_engine = create_async_engine(TEST_DATABASE_URL, echo=False)
+TEST_DATABASE_URL = settings.DATABASE_URL.rsplit("/", 1)[0] + "/rahatpay_test"
+test_engine = create_async_engine(TEST_DATABASE_URL, echo=False, poolclass=NullPool)
 TestSessionLocal = async_sessionmaker(
     bind=test_engine, class_=AsyncSession,
     expire_on_commit=False, autoflush=False
@@ -47,14 +48,15 @@ async def setup_db():
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
-        await conn.execute(text("""
-            INSERT INTO zones (pincode, city, area_name, risk_multiplier) VALUES
-            ('600001', 'Chennai',   'George Town',  1.20),
-            ('600002', 'Chennai',   'Sowcarpet',    1.15),
-            ('600010', 'Chennai',   'Egmore',       1.10),
-            ('400001', 'Mumbai',    'Fort',         1.30)
-            ON CONFLICT (pincode) DO NOTHING
-        """))
+        await conn.execute(
+            text("""
+            INSERT INTO zones (city, area_name, risk_multiplier, polygon, is_active, registration_cap) VALUES
+            ('Chennai', 'George Town', 1.20, '[]'::jsonb, TRUE, 1000),
+            ('Chennai', 'Sowcarpet', 1.15, '[]'::jsonb, TRUE, 1000),
+            ('Chennai', 'Egmore', 1.10, '[]'::jsonb, TRUE, 1000),
+            ('Mumbai', 'Fort', 1.30, '[]'::jsonb, TRUE, 1000)
+        """)
+        )
     yield
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
@@ -80,9 +82,9 @@ async def registered_rider(client):
         "phone": "+919876543211",
         "kyc": {"type": "aadhaar", "value": "9999"},
         "city": "Chennai",
-        "zone1_pincode": "600001",
-        "zone2_pincode": "600002",
-        "zone3_pincode": None,
+        "zone1_id": 1,
+        "zone2_id": 2,
+        "zone3_id": None,
         "tier": "suraksha",
     }
     resp = await client.post("/register", json=payload)
@@ -136,7 +138,7 @@ async def test_dashboard_zones_present(client, registered_rider):
     zones = resp.json()["zones"]
     assert len(zones) >= 1
     for zone in zones:
-        assert "pincode" in zone
+        assert "zone_id" in zone
         assert "area_name" in zone
         assert "risk_multiplier" in zone
 
@@ -155,7 +157,7 @@ async def test_dashboard_remaining_headroom_initial(client, registered_rider):
 @pytest.mark.asyncio
 async def test_dashboard_not_found(client):
     """Non-existent rider should return 404."""
-    resp = await client.get("/rider/00000000-0000-0000-0000-000000000000/dashboard")
+    resp = await client.get("/rider/999999/dashboard")
     assert resp.status_code == 404
 
 
@@ -163,7 +165,7 @@ async def test_dashboard_not_found(client):
 async def test_dashboard_invalid_uuid(client):
     """Invalid UUID format should return 422."""
     resp = await client.get("/rider/not-a-uuid/dashboard")
-    assert resp.status_code in (404, 422)
+    assert resp.status_code in (404, 400)
 
 
 # ── Payout history tests ──────────────────────────────────────────────────────

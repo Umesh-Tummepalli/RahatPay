@@ -148,3 +148,47 @@ BEGIN
         );
     END IF;
 END $$;
+
+-- ============================================================
+-- DEMO: one pending claim for admin override (idempotent)
+-- ============================================================
+DO $$
+DECLARE
+  v_rider INTEGER;
+  v_policy INTEGER;
+  v_event INTEGER;
+BEGIN
+  SELECT id INTO v_rider FROM riders WHERE partner_id = 'SWG-CHN-001' LIMIT 1;
+  IF v_rider IS NULL THEN
+    RETURN;
+  END IF;
+
+  SELECT id INTO v_policy FROM policies
+  WHERE rider_id = v_rider AND status = 'active'
+  ORDER BY id DESC LIMIT 1;
+  IF v_policy IS NULL THEN
+    RETURN;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM claims
+    WHERE rider_id = v_rider AND policy_id = v_policy AND status = 'pending'
+  ) THEN
+    RETURN;
+  END IF;
+
+  INSERT INTO disruption_events (
+    event_type, severity, payout_rate, affected_zone, trigger_data, event_start, processing_status
+  ) VALUES (
+    'heavy_rain', 'moderate', 0.5000, 1, '{}'::jsonb, NOW(), 'processed'
+  )
+  RETURNING id INTO v_event;
+
+  INSERT INTO claims (
+    rider_id, policy_id, disruption_event_id,
+    gate_results, is_eligible, status, calculated_payout, final_payout
+  ) VALUES (
+    v_rider, v_policy, v_event,
+    '{}'::jsonb, TRUE, 'pending', 500.00, 500.00
+  );
+END $$;

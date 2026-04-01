@@ -5,8 +5,11 @@ Admin API Layer for worker management, fraud monitoring, and financial overview.
 """
 
 from typing import Optional, List, Any
+import json
 import logging
-from datetime import date
+import threading
+from datetime import date, datetime, timezone
+from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, status, Depends, Header, Query
 from pydantic import BaseModel
@@ -22,6 +25,62 @@ from config import TIER_CONFIG, settings
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/admin", tags=["Admin Control Panel"])
+
+_RUNTIME_CONFIG_PATH = Path(__file__).resolve().parent.parent / ".admin_runtime_config.json"
+_runtime_config_lock = threading.Lock()
+
+
+def _load_runtime_config_overrides() -> dict:
+    """Load persisted admin overrides; missing or corrupt file → {} (safe default)."""
+    with _runtime_config_lock:
+        if not _RUNTIME_CONFIG_PATH.is_file():
+            return {}
+        try:
+            with open(_RUNTIME_CONFIG_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return data if isinstance(data, dict) else {}
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning("Could not read runtime admin config: %s", e)
+            return {}
+
+
+def _save_runtime_config_overrides(data: dict) -> None:
+    with _runtime_config_lock:
+        try:
+            _RUNTIME_CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+            with open(_RUNTIME_CONFIG_PATH, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+        except OSError as e:
+            logger.error("Could not write runtime admin config: %s", e)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Could not persist configuration.",
+            ) from e
+
+
+def _default_admin_config() -> dict:
+    return {
+        "tier_parameters": TIER_CONFIG,
+        "fraud_thresholds": {
+            "high_claim_frequency": 3,
+            "collusion_proximity_meters": 50,
+        },
+        "batch_job_status": {
+            "last_premium_run": "2026-03-31T01:00:00Z",
+            "last_gate_eval": "2026-03-31T03:00:00Z",
+        },
+    }
+
+
+def _merge_admin_config() -> dict:
+    base = _default_admin_config()
+    overrides = _load_runtime_config_overrides()
+    if "fraud_thresholds" in overrides and isinstance(overrides["fraud_thresholds"], dict):
+        base["fraud_thresholds"] = {**base["fraud_thresholds"], **overrides["fraud_thresholds"]}
+    if "batch_job_status" in overrides and isinstance(overrides["batch_job_status"], dict):
+        base["batch_job_status"] = {**base["batch_job_status"], **overrides["batch_job_status"]}
+    return base
+
 
 # ── Authentication ────────────────────────────────────────────────────────────
 
@@ -159,6 +218,87 @@ async def override_claim(
         claim.final_payout = request.final_payout
     await db.commit()
     return {"message": "Claim overridden successfully", "claim_id": claim.id}
+
+
+@router.post(
+    "/mock/create-claim",
+    dependencies=[Depends(require_admin)],
+    summary="Create a demo pending claim (non-production only)",
+)
+async def mock_create_claim(db: AsyncSession = Depends(get_db)):
+    """Attach a pending claim to an active policy for admin override demos."""
+    if settings.ENVIRONMENT == "production":
+        raise HTTPException(status_code=404, detail="Not found")
+
+    stmt = (
+        select(Policy)
+        .where(Policy.status == "active", Policy.cycle_end_date >= date.today())
+        .order_by(Policy.id.asc())
+        .limit(1)
+    )
+    pol_result = await db.execute(stmt)
+    policy = pol_result.scalar_one_or_none()
+    if not policy:
+        raise HTTPException(
+            status_code=400,
+            detail="No active policy found; register a rider first.",
+        )
+
+    res_rider = await db.execute(select(Rider).where(Rider.id == policy.rider_id))
+    rider = res_rider.scalar_one()
+    exists = await db.execute(
+        select(Claim.id).where(
+            Claim.rider_id == rider.id,
+            Claim.policy_id == policy.id,
+            Claim.status == "pending",
+        ).limit(1)
+    )
+    if exists.scalar_one_or_none():
+        c2 = await db.execute(
+            select(Claim)
+            .where(Claim.rider_id == rider.id, Claim.status == "pending")
+            .order_by(Claim.id.desc())
+            .limit(1)
+        )
+        existing = c2.scalar_one()
+        return {
+            "message": "Pending claim already exists for this rider",
+            "claim_id": existing.id,
+            "rider_id": rider.id,
+            "policy_id": policy.id,
+        }
+
+    event = DisruptionEvent(
+        event_type="heavy_rain",
+        severity="moderate",
+        payout_rate=0.5,
+        affected_zone=rider.zone1_id,
+        trigger_data={},
+        event_start=datetime.now(timezone.utc),
+        processing_status="processed",
+    )
+    db.add(event)
+    await db.flush()
+
+    claim = Claim(
+        rider_id=rider.id,
+        policy_id=policy.id,
+        disruption_event_id=event.id,
+        gate_results={},
+        is_eligible=True,
+        status="pending",
+        calculated_payout=500.00,
+        final_payout=500.00,
+    )
+    db.add(claim)
+    await db.commit()
+    await db.refresh(claim)
+    return {
+        "message": "Demo claim created",
+        "claim_id": claim.id,
+        "rider_id": rider.id,
+        "policy_id": policy.id,
+    }
 
 
 @router.get("/payouts", dependencies=[Depends(require_admin)])
@@ -318,29 +458,34 @@ async def get_financial_analytics(db: AsyncSession = Depends(get_db)):
 
 @router.get("/config", dependencies=[Depends(require_admin)])
 async def get_system_config():
-    """Return mock or current module settings."""
-    return {
-        "tier_parameters": TIER_CONFIG,
-        "fraud_thresholds": {
-            "high_claim_frequency": 3,
-            "collusion_proximity_meters": 50,
-        },
-        "batch_job_status": {
-            "last_premium_run": "2026-03-31T01:00:00Z",
-            "last_gate_eval": "2026-03-31T03:00:00Z"
-        }
-    }
+    """Return module settings merged with persisted admin overrides."""
+    return _merge_admin_config()
 
 
 class ConfigPatchRequest(BaseModel):
     fraud_thresholds: Optional[dict] = None
+    batch_job_status: Optional[dict] = None
     update_message: Optional[str] = None
 
 
 @router.patch("/config", dependencies=[Depends(require_admin)])
 async def update_system_config(request: ConfigPatchRequest):
-    """Mocks accepting config modification."""
+    """Persist fraud_thresholds / batch_job_status to disk; merged on GET."""
+    stored = _load_runtime_config_overrides()
+    if request.fraud_thresholds:
+        ft = dict(stored.get("fraud_thresholds") or {})
+        ft.update(request.fraud_thresholds)
+        stored["fraud_thresholds"] = ft
+    if request.batch_job_status:
+        bj = dict(stored.get("batch_job_status") or {})
+        bj.update(request.batch_job_status)
+        stored["batch_job_status"] = bj
+    if request.update_message:
+        stored["_last_update_message"] = request.update_message
+    _save_runtime_config_overrides(stored)
+    merged = _merge_admin_config()
     return {
-        "message": "Configuration updated successfully (mock)",
-        "fraud_thresholds": request.fraud_thresholds or {}
+        "message": "Configuration updated successfully",
+        "fraud_thresholds": merged["fraud_thresholds"],
+        "batch_job_status": merged["batch_job_status"],
     }

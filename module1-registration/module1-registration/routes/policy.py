@@ -18,7 +18,7 @@ from typing import Optional, List, Any
 from fastapi import APIRouter, HTTPException, status, Depends, Query
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, and_
+from sqlalchemy import select, func, and_, case
 from sqlalchemy.orm import selectinload
 
 from db.connection import get_db
@@ -270,10 +270,10 @@ async def get_payout_history(
     # Aggregate stats
     stats_stmt = select(
         func.count(Claim.id).label("total"),
-        func.sum(func.case((Claim.status == "paid", 1), else_=0)).label("approved"),
-        func.sum(func.case((Claim.status == "rejected", 1), else_=0)).label("rejected"),
+        func.sum(case((Claim.status == "paid", 1), else_=0)).label("approved"),
+        func.sum(case((Claim.status == "rejected", 1), else_=0)).label("rejected"),
         func.coalesce(
-            func.sum(func.case((Claim.status == "paid", Claim.final_payout), else_=0)), 0
+            func.sum(case((Claim.status == "paid", Claim.final_payout), else_=0)), 0
         ).label("total_paid"),
     ).where(Claim.rider_id == rider_id)
     stats_result = await db.execute(stats_stmt)

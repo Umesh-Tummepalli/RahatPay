@@ -18,6 +18,13 @@ class Settings(BaseSettings):
     DEBUG: bool = Field(default=False, env="DEBUG")
     ENVIRONMENT: str = Field(default="development", env="ENVIRONMENT")
 
+    # Demo / QA: optional weekly income override on POST /register (blocked when ENVIRONMENT=production)
+    ALLOW_DEMO_INCOME_OVERRIDE: bool = Field(
+        default=True,
+        env="ALLOW_DEMO_INCOME_OVERRIDE",
+        description="When True (non-production), registration accepts demo_income_override",
+    )
+
     # ── Database ──────────────────────────────────────────────────────────────
     # asyncpg driver required for async SQLAlchemy
     DATABASE_URL: str = Field(
