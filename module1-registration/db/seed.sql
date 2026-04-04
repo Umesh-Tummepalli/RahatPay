@@ -148,3 +148,41 @@ BEGIN
         );
     END IF;
 END $$;
+
+-- ============================================================
+-- DEMO USER: Imran Shaikh (imran@rahatpay.app / 123456)
+-- partner_id matches Firebase UID from DEMO_ACCOUNTS
+-- ============================================================
+DO $$
+DECLARE
+    imran_id INTEGER;
+BEGIN
+    INSERT INTO riders (
+        partner_id, platform, name, phone,
+        aadhaar_last4, city, zone1_id, zone2_id, zone3_id,
+        tier, baseline_weekly_income, baseline_weekly_hours,
+        is_seasoning, trust_score, is_blocked, kyc_verified
+    ) VALUES (
+        'demo-imran-shaikh', 'swiggy', 'Imran Shaikh', '+919101000008',
+        '7842', 'Bangalore', 14, 15, NULL,
+        'raksha', 4000.00, 41.00,
+        FALSE, 80.00, FALSE, TRUE
+    )
+    ON CONFLICT (partner_id) DO NOTHING
+    RETURNING id INTO imran_id;
+
+    IF imran_id IS NOT NULL THEN
+        INSERT INTO policies (
+            rider_id, tier, weekly_premium,
+            premium_breakdown, weekly_payout_cap,
+            coverage_type, status,
+            cycle_start_date, cycle_end_date
+        ) VALUES (
+            imran_id, 'raksha', 100.00,
+            '{"income": 4000.0, "tier_rate": 0.025, "zone_risk": 1.075, "seasonal_factor": 0.95, "floor_applied": false, "cap_applied": false}'::jsonb,
+            5000.00,
+            'income_disruption', 'active',
+            CURRENT_DATE, CURRENT_DATE + INTERVAL '28 days'
+        );
+    END IF;
+END $$;

@@ -45,7 +45,7 @@ export default function Fraud() {
 
   const fetchFraudData = async () => {
     try {
-      const res = await fetch("http://localhost:8001/admin/fraud/flagged", {
+      const res = await fetch("/admin/fraud/flagged", {
         headers: { "Authorization": "Bearer admin_token" }
       });
       if (!res.ok) {
@@ -60,7 +60,7 @@ export default function Fraud() {
       // Use mock data for demo
       setFlagged(MOCK_FRAUD_ALERTS);
       setUsingMockData(true);
-      setError("Backend unavailable. Showing demo data. Start Module 1 on port 8001 for live data.");
+      setError("Backend unavailable. Showing demo data. Backend unavailable, showing demo data.");
     } finally {
       setLoading(false);
     }
@@ -74,7 +74,7 @@ export default function Fraud() {
     setAttackLoading(true);
     setAttackResult(null);
     try {
-      const res = await fetch("http://localhost:8001/admin/simulate-attack", {
+      const res = await fetch("/admin/simulate-attack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export default function Fraud() {
       await fetchFraudData();
     } catch (err) {
       console.error("Failed to simulate attack:", err);
-      setAttackResult({ error: "Failed to simulate attack. Make sure the backend is running on port 8001." });
+      setAttackResult({ error: "Failed to simulate attack. Make sure the backend is running." });
     } finally {
       setAttackLoading(false);
     }
@@ -130,7 +130,7 @@ export default function Fraud() {
         </div>
         {usingMockData && (
           <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-md text-xs text-blue-800">
-            ℹ️ <strong>Demo Mode:</strong> Showing sample fraud alerts. Start the Module 1 backend (port 8001) for live data.
+            ℹ️ <strong>Demo Mode:</strong> Showing sample fraud alerts. Start the backend for live data.
           </div>
         )}
         {error && !usingMockData && (

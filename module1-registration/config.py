@@ -26,6 +26,17 @@ class Settings(BaseSettings):
     )
     DB_ECHO: bool = Field(default=False, env="DB_ECHO")
 
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def convert_db_url(cls, v: str) -> str:
+        if isinstance(v, str):
+            if v.startswith("postgresql://"):
+                v = "postgresql+asyncpg://" + v[len("postgresql://"):]
+            elif v.startswith("postgres://"):
+                v = "postgresql+asyncpg://" + v[len("postgres://"):]
+            v = v.replace("?sslmode=disable", "").replace("&sslmode=disable", "")
+        return v
+
     # ── Firebase ──────────────────────────────────────────────────────────────
     FIREBASE_CREDENTIALS_PATH: Optional[str] = Field(
         default=None, env="FIREBASE_CREDENTIALS_PATH"

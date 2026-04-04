@@ -1,6 +1,13 @@
 import { validateAadhaar, validatePAN } from '../utils/validation';
 
-export const BASE_URL = 'http://192.168.1.13:8001';
+const _getBaseUrl = () => {
+  if (typeof window !== 'undefined' && window.location && window.location.hostname) {
+    const { protocol, hostname } = window.location;
+    return `${protocol}//${hostname}:8000`;
+  }
+  return 'http://localhost:8000';
+};
+export const BASE_URL = _getBaseUrl();
 const REQUEST_TIMEOUT_MS = 8000;
 
 export const fetchWithTimeout = async (url, options = {}, timeoutMs = REQUEST_TIMEOUT_MS) => {

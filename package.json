@@ -1,0 +1,18 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "> **Guidewire DEVTrails 2026 | Phase 1 Submission**   > **Team:** Bool Sheet | **University:** SRM INSTITUTE OF SCIENCE AND TECHNOLOGY > **Persona:** Food Delivery Partners — Zomato & Swiggy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@expo/metro-runtime": "^55.0.9",
+    "@expo/webpack-config": "^19.0.1",
+    "expo": "^55.0.11",
+    "react-dom": "^19.2.4"
+  }
+}

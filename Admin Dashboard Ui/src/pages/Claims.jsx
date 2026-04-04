@@ -21,7 +21,7 @@ export default function Claims() {
 
   const fetchClaims = async () => {
     try {
-      const res = await fetch("http://localhost:8003/admin/claims/live", {
+      const res = await fetch("/admin/claims/live", {
         headers: { "Authorization": "Bearer admin_token" }
       });
       if (!res.ok) {
@@ -36,7 +36,7 @@ export default function Claims() {
       // Use mock data for demo
       setClaims(MOCK_CLAIMS);
       setUsingMockData(true);
-      setError("Backend unavailable. Showing demo data. Start Module 3 on port 8003 for live data.");
+      setError("Backend unavailable. Showing demo data. Start the backend for live data.");
     } finally {
       setLoading(false);
     }
@@ -49,7 +49,7 @@ export default function Claims() {
   const handleOverride = async (claimId, status) => {
     setActionLoading(prev => ({ ...prev, [claimId]: status }));
     try {
-      const res = await fetch(`http://localhost:8003/admin/claims/${claimId}/override`, {
+      const res = await fetch(`/admin/claims/${claimId}/override`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export default function Claims() {
         </div>
         {usingMockData && (
           <div className="mt-4 p-4 p-4 bg-blue-50 border border-blue-200 rounded-md text-xs text-blue-800">
-            ℹ️ <strong>Demo Mode:</strong> Showing sample data. Start the Module 3 backend (port 8003) for live claims.
+            ℹ️ <strong>Demo Mode:</strong> Showing sample data. Start the backend for live claims.
           </div>
         )}
         {error && !usingMockData && (

@@ -26,7 +26,7 @@ function SeedButton({ worker, onSeedComplete }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`http://localhost:8001/admin/workers/${worker.id}/seed-sample-data`, {
+      const res = await fetch(`/admin/workers/${worker.id}/seed-sample-data`, {
         method: "POST",
         headers: {
           "Authorization": "Bearer admin_token",

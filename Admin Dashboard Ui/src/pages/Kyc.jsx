@@ -61,8 +61,8 @@ export default function Kyc() {
     try {
       const endpoint =
         action === "approve"
-          ? `http://localhost:8001/admin/workers/${workerId}/verify-kyc`
-          : `http://localhost:8001/admin/workers/${workerId}/review-kyc`;
+          ? `/admin/workers/${workerId}/verify-kyc`
+          : `/admin/workers/${workerId}/review-kyc`;
 
       const options =
         action === "approve"

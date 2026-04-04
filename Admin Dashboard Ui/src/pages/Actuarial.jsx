@@ -26,7 +26,7 @@ export default function Actuarial() {
 
   const fetchActuarial = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8001/admin/analytics/actuarial", {
+      const res = await fetch("/admin/analytics/actuarial", {
         headers: {
           Authorization: "Bearer admin_token",
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function Actuarial() {
       setAnalyticsError(null);
     } catch (err) {
       console.error("❌ Failed to fetch actuarial data:", err);
-      setAnalyticsError("Failed to load actuarial analytics. Make sure Module 1 is running on port 8001.");
+      setAnalyticsError("Failed to load actuarial analytics. Make sure the backend is running.");
     } finally {
       setAnalyticsLoading(false);
     }
@@ -51,7 +51,7 @@ export default function Actuarial() {
 
   const fetchWorkers = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8001/admin/workers", {
+      const res = await fetch("/admin/workers", {
         headers: {
           Authorization: "Bearer admin_token",
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function Actuarial() {
 
   const fetchZones = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8001/admin/zones", {
+      const res = await fetch("/admin/zones", {
         headers: {
           Authorization: "Bearer admin_token",
           "Content-Type": "application/json",
@@ -162,7 +162,7 @@ export default function Actuarial() {
       };
       console.log(" Sending simulation request:", payload);
 
-      const res = await fetch("http://localhost:8001/premium/simulate", {
+      const res = await fetch("/premium/simulate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

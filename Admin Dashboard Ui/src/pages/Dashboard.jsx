@@ -31,7 +31,7 @@ export default function Dashboard() {
     setSeeding(true);
     setSeedResult(null);
     try {
-      const res = await fetch("http://localhost:8001/admin/seed-demo", {
+      const res = await fetch("/admin/seed-demo", {
         method: "POST",
         headers: {
           "Authorization": "Bearer admin_token",
@@ -238,11 +238,11 @@ export default function Dashboard() {
           <CardContent className="space-y-4 pb-4">
             <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
               <span className="text-slate-500">Module 1 — Registration</span>
-              <Badge variant="green">Port 8001</Badge>
+              <Badge variant="green">Port 8000</Badge>
             </div>
             <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
               <span className="text-slate-500">Module 2 — Risk Engine</span>
-              <Badge variant="green">Port 8002</Badge>
+              <Badge variant="green">Embedded</Badge>
             </div>
             <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
               <span className="text-slate-500">Module 3 — Claims Engine</span>

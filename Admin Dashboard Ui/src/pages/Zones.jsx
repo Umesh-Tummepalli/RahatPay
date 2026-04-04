@@ -30,7 +30,7 @@ export default function Zones() {
 
   const fetchZones = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:8001/admin/zones", {
+      const res = await fetch("/admin/zones", {
         headers: { Authorization: "Bearer admin_token" }
       });
       if (!res.ok) {
@@ -45,7 +45,7 @@ export default function Zones() {
       setPageError(null);
     } catch (err) {
       console.error(err);
-      setPageError("Failed to load zones. Make sure Module 1 is running on port 8001.");
+      setPageError("Failed to load zones. Make sure the backend is running.");
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ export default function Zones() {
     setSimLoading(true);
     setSimResult(null);
     try {
-      const res = await fetch("http://localhost:8001/admin/simulate-disaster", {
+      const res = await fetch("/admin/simulate-disaster", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

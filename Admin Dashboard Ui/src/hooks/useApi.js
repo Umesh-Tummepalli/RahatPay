@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
-const API_BASE = "http://localhost:8001";
+const API_BASE = "";
 const ADMIN_HEADERS = {
   "Authorization": "Bearer admin_token",
   "Content-Type": "application/json",
