@@ -16,6 +16,7 @@ function formatRelative(value) {
 }
 
 export default function Zones() {
+  const showDisasterSimulator = false;
   const [zones, setZones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageError, setPageError] = useState(null);
@@ -159,7 +160,7 @@ export default function Zones() {
           </CardContent>
         </Card>
 
-        <Card className="border-(--color-primary)/20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border-t-4 border-t-(--color-primary)">
+        {showDisasterSimulator && <Card className="border-(--color-primary)/20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border-t-4 border-t-(--color-primary)">
           <CardHeader>
             <CardTitle>Disaster Engine (Simulation)</CardTitle>
           </CardHeader>
@@ -264,7 +265,7 @@ export default function Zones() {
               </div>
             )}
           </CardContent>
-        </Card>
+        </Card>}
       </div>
     </div>
   );

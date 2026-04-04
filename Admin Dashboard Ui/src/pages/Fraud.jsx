@@ -33,6 +33,7 @@ const MOCK_FRAUD_ALERTS = [
 ];
 
 export default function Fraud() {
+  const showAttackSimulator = false;
   const [flagged, setFlagged] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -142,7 +143,7 @@ export default function Fraud() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Attack Simulation Panel */}
-        <Card className="border-t-4 border-t-red-500 shadow-[0_4px_20px_-4px_rgba(239,68,68,0.15)]">
+        {showAttackSimulator && <Card className="border-t-4 border-t-red-500 shadow-[0_4px_20px_-4px_rgba(239,68,68,0.15)]">
           <CardHeader>
             <CardTitle>⚡ Attack Simulator</CardTitle>
           </CardHeader>
@@ -199,7 +200,7 @@ export default function Fraud() {
               <div className="mt-2 p-2 rounded bg-red-100 text-red-700 text-xs">{attackResult.error}</div>
             )}
           </CardContent>
-        </Card>
+        </Card>}
 
         {/* Alert Feed */}
         <Card className="lg:col-span-2">

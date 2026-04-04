@@ -26,6 +26,24 @@ TRIAL_WEEKLY_COVERAGE_INR = 4000.0
 TIER_ORDER = ("kavach", "suraksha", "raksha")
 RECOMMENDED_TIER = "suraksha"
 
+# ── In-memory pending notification store ──────────────────────────────────────
+# Stores attack/disaster notifications keyed by rider_id.
+# Written by simulate_attack / simulate_disaster endpoints; cleared on ack.
+_pending_event_notifications: dict[int, dict] = {}
+
+
+def set_event_notification(rider_id: int, notification: dict) -> None:
+    """Store a pending event notification for a rider (overwrites previous)."""
+    _pending_event_notifications[rider_id] = notification
+
+
+def get_event_notification(rider_id: int) -> dict | None:
+    return _pending_event_notifications.get(rider_id)
+
+
+def clear_event_notification(rider_id: int) -> None:
+    _pending_event_notifications.pop(rider_id, None)
+
 
 @dataclass
 class BaselineSnapshot:
@@ -324,7 +342,17 @@ def notification_is_unread(subscription_state: SubscriptionState) -> bool:
     return subscription_state.notification_seen_at < subscription_state.last_notified_at
 
 
-def build_notification_payload(subscription_state: SubscriptionState) -> dict[str, Any] | None:
+def build_notification_payload(
+    subscription_state: SubscriptionState,
+    rider_id: int | None = None,
+) -> dict[str, Any] | None:
+    # Priority 1 — live attack/disaster event notification (unacknowledged)
+    if rider_id is not None:
+        event_notif = get_event_notification(rider_id)
+        if event_notif:
+            return event_notif
+
+    # Priority 2 — trial-ended / premium quotes ready
     if not notification_is_unread(subscription_state):
         return None
 
@@ -415,8 +443,11 @@ def serialize_subscription_state(
             "last_seeded_at": isoformat(subscription_state.last_seeded_at),
         },
         "banner": build_trial_banner(subscription_state.phase, subscription_state),
-        "notification": build_notification_payload(subscription_state),
-        "notification_unread": notification_is_unread(subscription_state),
+        "notification": build_notification_payload(subscription_state, rider_id=rider.id),
+        "notification_unread": (
+            notification_is_unread(subscription_state)
+            or get_event_notification(rider.id) is not None
+        ),
         "has_seeded_history": has_seeded_history(rider),
         "last_quotes_at": isoformat(subscription_state.last_quotes_at),
         "premium_quotes": subscription_state.premium_quotes or {},

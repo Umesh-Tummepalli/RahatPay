@@ -22,6 +22,7 @@ from models.policy import Policy, Claim, Payout, DisruptionEvent
 from config import TIER_CONFIG, settings
 from services.subscription_state import (
     build_premium_quotes,
+    clear_event_notification,
     ensure_subscription_state,
     get_active_paid_policy,
     get_trial_expires_at,
@@ -30,6 +31,7 @@ from services.subscription_state import (
     notification_is_unread,
     quote_summary_from_quotes,
     serialize_subscription_state,
+    set_event_notification,
     sync_subscription_phase,
     utcnow,
 )
@@ -1110,6 +1112,24 @@ async def simulate_attack(
         await db.commit()
         await db.refresh(synthetic_event)
 
+    # Push a live notification to the mobile app via subscription-state polling
+    set_event_notification(
+        rider_id,
+        {
+            "type": "attack_simulated",
+            "title": f"⚠️ {scenario['title']} Detected",
+            "body": (
+                f"A fraud attack has been detected and blocked. "
+                f"Payment of ₹0 initiated (claim auto-rejected). "
+                f"{scenario['countermeasure']}"
+            ),
+            "triggered_at": utcnow().isoformat(),
+            "attack_type": request.attack_type,
+            "risk_score": scenario["risk_score"],
+            "event_id": synthetic_event.id if synthetic_event else None,
+        },
+    )
+
     return {
         "attack_type": request.attack_type,
         "title": scenario["title"],
@@ -1124,6 +1144,7 @@ async def simulate_attack(
         "mobile_event_created": bool(synthetic_event),
         "mobile_event_id": synthetic_event.id if synthetic_event else None,
         "mobile_event_zone": synthetic_event.affected_zone if synthetic_event else None,
+        "mobile_notification_pushed": True,
     }
 
 
@@ -1138,15 +1159,72 @@ class DisasterSimulationRequest(BaseModel):
 
 
 @router.post("/simulate-disaster", dependencies=[Depends(require_admin)])
-async def simulate_disaster_proxy(request: DisasterSimulationRequest):
+async def simulate_disaster_proxy(
+    request: DisasterSimulationRequest,
+    db: AsyncSession = Depends(get_db),
+):
     """
-    Proxy endpoint to Module 3 (port 8003) for disaster simulation.
-    This allows the Admin Dashboard to call only Module 1 (port 8001) for all simulations.
+    Simulates a seasonal/weather disaster event.
+    Creates a DisruptionEvent locally (Module 1 DB) and proxies to Module 3 if available.
+    Always pushes a live notification to the demo rider's mobile app.
     """
     MODULE3_URL = "http://localhost:8003"
-    
+
+    # Always create the event locally so the mobile app can see it
+    now = utcnow()
+    local_event = DisruptionEvent(
+        event_type=request.event_type,
+        severity=request.severity,
+        payout_rate=request.severity_rate,
+        affected_zone=request.affected_zone,
+        trigger_data={
+            "source": "admin_simulation",
+            "lost_hours": request.lost_hours,
+            "severity_rate": request.severity_rate,
+        },
+        event_start=now,
+        event_end=now + timedelta(hours=8),
+        processing_status="processed",
+    )
+    db.add(local_event)
+    await db.commit()
+    await db.refresh(local_event)
+
+    # Push live notification to demo rider
+    imran = await _resolve_imran_rider(db)
+    if imran:
+        estimated_payout = round(request.lost_hours * (imran.baseline_hourly_rate or 75.0) * request.severity_rate, 2)
+        set_event_notification(
+            imran.id,
+            {
+                "type": "disaster_simulated",
+                "title": f"🌧️ {request.event_type.replace('_', ' ').title()} Alert",
+                "body": (
+                    f"A {request.severity.replace('_', ' ')} disruption in your zone has been detected. "
+                    f"Estimated payout of ₹{estimated_payout:.0f} has been initiated."
+                ),
+                "triggered_at": now.isoformat(),
+                "event_type": request.event_type,
+                "severity": request.severity,
+                "estimated_payout": estimated_payout,
+                "event_id": local_event.id,
+            },
+        )
+
+    local_result = {
+        "event_id": local_event.id,
+        "event_type": request.event_type,
+        "severity": request.severity,
+        "affected_zone": request.affected_zone,
+        "message": f"Disaster event created. Notification pushed to demo rider.",
+        "mobile_notification_pushed": bool(imran),
+        "claims_created": 0,
+        "total_payout_estimated": estimated_payout if imran else 0,
+    }
+
+    # Optionally forward to Module 3 for full claims processing
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
+        async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.post(
                 f"{MODULE3_URL}/admin/simulate-disaster",
                 json={
@@ -1154,24 +1232,19 @@ async def simulate_disaster_proxy(request: DisasterSimulationRequest):
                     "severity": request.severity,
                     "affected_zone": request.affected_zone,
                     "lost_hours": request.lost_hours,
-                    "severity_rate": request.severity_rate
+                    "severity_rate": request.severity_rate,
                 },
-                headers={"Authorization": "Bearer admin_token"}
+                headers={"Authorization": "Bearer admin_token"},
             )
-            response.raise_for_status()
-            return response.json()
-    except httpx.HTTPError as e:
-        logger.error(f"Module 3 disaster simulation failed: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Module 3 (Claims Engine) unavailable: {str(e)}"
-        )
+            if response.status_code == 200:
+                m3_data = response.json()
+                local_result["claims_created"] = m3_data.get("claims_created", 0)
+                local_result["module3_response"] = m3_data
     except Exception as e:
-        logger.error(f"Unexpected error in disaster simulation: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Disaster simulation failed: {str(e)}"
-        )
+        logger.info(f"Module 3 not available ({e}), local event only.")
+        local_result["module3_status"] = "unavailable"
+
+    return local_result
 
 
 # ── 10. Real-time Event Polling (for Mobile App & Dashboard) ─────────────────

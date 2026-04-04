@@ -1,14 +1,55 @@
 import { validateAadhaar, validatePAN } from '../utils/validation';
+import Constants from 'expo-constants';
 
+/**
+ * Resolves the correct backend base URL.
+ *
+ * • Web (browser / admin dashboard):  uses window.location.hostname so the
+ *   Vite proxy handles routing automatically.
+ * • Expo Go on a physical device:     uses the dev-server host IP extracted
+ *   from Constants.expoConfig.hostUri (e.g. "192.168.1.12:8081" → "192.168.1.12")
+ *   so the phone can reach the host machine on the LAN.
+ * • Android emulator fallback:        10.0.2.2  (maps to host loopback)
+ * • Everything else:                  localhost (works for web / iOS sim)
+ */
 const _getBaseUrl = () => {
+  // Web environment (Vite dev server proxies all /rider, /admin, etc.)
   if (typeof window !== 'undefined' && window.location && window.location.hostname) {
     const { protocol, hostname } = window.location;
     return `${protocol}//${hostname}:8000`;
   }
+
+  // Expo Go — extract host IP from the Metro bundler address
+  try {
+    const hostUri =
+      Constants.expoConfig?.hostUri ||        // SDK 46+
+      Constants.manifest2?.extra?.expoClient?.hostUri ||
+      Constants.manifest?.debuggerHost;       // older SDKs
+    if (hostUri) {
+      const hostIp = hostUri.split(':')[0];   // strip port ("192.168.x.x:8081" → "192.168.x.x")
+      if (hostIp && hostIp !== 'localhost' && hostIp !== '127.0.0.1') {
+        return `http://${hostIp}:8000`;
+      }
+    }
+  } catch (_) {
+    // ignore — fall through to defaults
+  }
+
+  // Android emulator maps 10.0.2.2 → host loopback
+  // (React Native's Platform is only available in RN context — safe to require lazily)
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { Platform } = require('react-native');
+    if (Platform.OS === 'android') {
+      return 'http://10.0.2.2:8000';
+    }
+  } catch (_) { /* ignore */ }
+
   return 'http://localhost:8000';
 };
+
 export const BASE_URL = _getBaseUrl();
-const REQUEST_TIMEOUT_MS = 8000;
+const REQUEST_TIMEOUT_MS = 15000; // increased to 15s — physical device LAN can be slower
 
 export const fetchWithTimeout = async (url, options = {}, timeoutMs = REQUEST_TIMEOUT_MS) => {
   const controller = new AbortController();
@@ -19,6 +60,17 @@ export const fetchWithTimeout = async (url, options = {}, timeoutMs = REQUEST_TI
       ...options,
       signal: controller.signal,
     });
+  } catch (err) {
+    // Give the user a meaningful message instead of the raw "Aborted" or "Network request failed"
+    if (err.name === 'AbortError') {
+      const friendlyErr = new Error(
+        `Backend unreachable at ${url.replace(/^(https?:\/\/[^/]+).*/, '$1')} — ` +
+        'make sure the server is running and your phone is on the same WiFi network.'
+      );
+      friendlyErr.name = 'AbortError';
+      throw friendlyErr;
+    }
+    throw err;
   } finally {
     clearTimeout(timeoutId);
   }

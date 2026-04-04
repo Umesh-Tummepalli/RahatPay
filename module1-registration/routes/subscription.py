@@ -17,8 +17,10 @@ from models.policy import Policy
 from models.rider import Rider
 from services.subscription_state import (
     build_premium_quotes,
+    clear_event_notification,
     ensure_subscription_state,
     get_active_paid_policy,
+    get_event_notification,
     notification_is_unread,
     serialize_subscription_state,
     sync_subscription_phase,
@@ -63,6 +65,11 @@ async def acknowledge_subscription_notification(
     rider = await _get_rider_or_404(rider_id, db)
     active_policy = await get_active_paid_policy(db, rider.id)
     subscription_state = await ensure_subscription_state(db, rider, active_policy=active_policy)
+
+    # Clear any pending event notification (attack/disaster) first
+    had_event_notif = get_event_notification(rider.id) is not None
+    if had_event_notif:
+        clear_event_notification(rider.id)
 
     if subscription_state.last_notified_at and notification_is_unread(subscription_state):
         subscription_state.notification_seen_at = utcnow()

@@ -1,0 +1,1822 @@
+
+> admin-dashboard-ui@0.0.0 dev
+> vite
+
+[1G[0K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J
+  [32m[1mVITE[22m v8.0.3[39m  [2mready in [0m[1m402[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.31.106.2:[1m5000[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m10:32:44 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:44 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:44 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:44 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:32:44 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:44 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:44 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:44 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:32:44 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:32:44 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:32:53 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:53 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at doubleInvokeEffectsOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:8923:125)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+[2m10:32:53 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:53 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at doubleInvokeEffectsOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:8923:125)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at doubleInvokeEffectsOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:8923:125)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at doubleInvokeEffectsOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:8923:125)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:32:55 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:32:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:33:03 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:33:03 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:33:03 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:33:03 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:33:03 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:33:03 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:33:03 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:33:03 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:33:03 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:33:03 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:33:20 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mTypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at handleSeedDemo (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/pages/Dashboard.jsx:61:22)
+    at executeDispatch (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9140:5)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at processDispatchQueue (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9166:27)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9453:5
+    at batchedUpdates$1 (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:2043:12)
+    at dispatchEventForPluginEventSystem (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9239:4)
+    at dispatchEvent (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:11318:29)
+    at dispatchDiscreteEvent (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:11300:56)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:34:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mTypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at handleSeedDemo (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/pages/Dashboard.jsx:61:22)
+    at executeDispatch (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9140:5)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at processDispatchQueue (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9166:27)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9453:5
+    at batchedUpdates$1 (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:2043:12)
+    at dispatchEventForPluginEventSystem (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:9239:4)
+    at dispatchEvent (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:11318:29)
+    at dispatchDiscreteEvent (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:11300:56) [33m(x2)[39m
+[2m10:48:01 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:48:01 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:48:01 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:48:01 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:48:01 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:48:01 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:48:01 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7617:22)
+    at recursivelyTraversePassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7605:5)
+    at commitPassiveMountOnFiber (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7671:14)
+[2m10:48:01 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:48:01 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+[2m10:48:01 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: TypeError: Failed to fetch
+    at Object.apply (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/__replco/static/devtools/injected.js:214:39)
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:22:22
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:40:3
+    at Object.react_stack_bottom_frame (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:12903:13)
+    at runWithFiberInDEV (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:850:66)
+    at commitHookEffectListMount (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6616:153)
+    at commitHookPassiveMountEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:6651:55)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7700:6)
+    at recursivelyTraverseReconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7687:5)
+    at reconnectPassiveEffects (https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/node_modules/.vite/deps/react-dom_client.js?v=34ec73b8:7712:14)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:27 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/Dashboard.jsx, /src/pages/Workers.jsx, /src/pages/Kyc.jsx, /src/pages/Payouts.jsx[22m
+[2m10:51:27 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js?t=1775299887066:24:27
+[2m10:51:27 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js?t=1775299887066:24:27
+[2m10:51:27 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js?t=1775299887066:24:27
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:27 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Claims.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:33 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Claims.jsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:34 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Actuarial.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Actuarial.jsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:40 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Actuarial.jsx, /src/index.css[22m [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Fraud.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:42 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Fraud.jsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Kyc.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m10:51:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js?t=1775299887066:24:27
+[2m10:51:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js?t=1775299887066:24:27
+[2m10:51:55 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js?t=1775299887066:24:27
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:51:56 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Workers.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:11 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Zones.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:12 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Zones.jsx, /src/index.css[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:25 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Actuarial.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:29 AM[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m10:52:29 AM[22m [36m[1m[vite][22m[39m server restarted.
+[2m10:52:30 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:30 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:30 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:30 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/fraud/flagged[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/workers[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/analytics/financial[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/fraud/flagged[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/workers[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/analytics/financial[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:52:30 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Actuarial.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Zones.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Fraud.jsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:52:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/Claims.jsx, /src/index.css[22m
+[2m10:59:07 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:07 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:07 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:07 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/workers[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/analytics/financial[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/fraud/flagged[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/fraud/flagged[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16) [33m(x2)[39m
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/analytics/financial[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/workers[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23 [33m(x2)[39m
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:07 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:14 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:14 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:14 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m10:59:14 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/analytics/financial[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/workers[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/fraud/flagged[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/analytics/financial[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/workers[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /admin/fraud/flagged[39m
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/analytics/financial]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/workers]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m10:59:14 AM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mAPI Fetch Error [/admin/fraud/flagged]: Error: HTTP error: 502
+    at https://04d6cf83-e4b8-44e1-9508-f6d4b951362d-00-9p4b4zi9ht3m.sisko.replit.dev/src/hooks/useApi.js:23:23
+[2m11:00:43 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m11:00:43 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m11:00:43 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m11:00:43 AM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width. [33m(x4)[39m
