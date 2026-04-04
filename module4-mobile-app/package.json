@@ -1,0 +1,12 @@
+{
+  "name": "module4-mobile-app",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix ./Rahat-Pay/Rahat-Pay run start",
+    "start:clear": "npm --prefix ./Rahat-Pay/Rahat-Pay run start:clear",
+    "start:tunnel": "npm --prefix ./Rahat-Pay/Rahat-Pay run start:tunnel",
+    "android": "npm --prefix ./Rahat-Pay/Rahat-Pay run android",
+    "ios": "npm --prefix ./Rahat-Pay/Rahat-Pay run ios",
+    "web": "npm --prefix ./Rahat-Pay/Rahat-Pay run web"
+  }
+}

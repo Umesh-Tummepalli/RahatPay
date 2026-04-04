@@ -60,7 +60,7 @@ export default function Platform() {
           <CardContent className="space-y-4">
             <div className="flex gap-4">
               <span className="w-16 shrink-0 text-[10px] font-mono text-slate-400 mt-1">10:42 AM</span>
-              <div className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-[var(--color-success)] shadow-[0_0_5px_var(--color-success)]" />
+              <div className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-(--color-success) shadow-[0_0_5px_var(--color-success)]" />
               <div>
                 <p className="text-[13px] text-slate-800 leading-tight">Swiggy API sync completed</p>
                 <p className="text-[11px] text-slate-500 mt-1">72,440 records · 1.2s</p>
@@ -68,7 +68,7 @@ export default function Platform() {
             </div>
             <div className="flex gap-4">
               <span className="w-16 shrink-0 text-[10px] font-mono text-slate-400 mt-1">10:37 AM</span>
-              <div className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-[var(--color-success)]" />
+              <div className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-(--color-success)" />
               <div>
                 <p className="text-[13px] text-slate-800 leading-tight">Zomato API sync completed</p>
                 <p className="text-[11px] text-slate-500 mt-1">70,400 records · 1.4s</p>
@@ -76,7 +76,7 @@ export default function Platform() {
             </div>
             <div className="flex gap-4">
               <span className="w-16 shrink-0 text-[10px] font-mono text-slate-400 mt-1">09:11 AM</span>
-              <div className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-[var(--color-warning)]" />
+              <div className="w-2 h-2 rounded-full mt-1.5 shrink-0 bg-(--color-warning)" />
               <div>
                 <p className="text-[13px] text-slate-800 leading-tight">KYC service latency spike</p>
                 <p className="text-[11px] text-slate-500 mt-1">P99 latency: 2,100ms (threshold: 1,000ms)</p>

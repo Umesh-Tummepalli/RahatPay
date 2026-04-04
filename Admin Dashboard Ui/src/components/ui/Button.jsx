@@ -11,10 +11,10 @@ export function Button({
   const baseStyles = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
   
   const variants = {
-    default: "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)]/90 shadow-sm",
-    destructive: "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 shadow-sm",
+    default: "bg-(--color-primary) text-white hover:bg-(--color-primary)/90 shadow-sm",
+    destructive: "bg-(--color-danger) text-white hover:bg-(--color-danger)/90 shadow-sm",
     outline: "border border-slate-200 bg-transparent hover:bg-slate-100 text-slate-700",
-    secondary: "bg-[var(--color-brand-olive)] text-white hover:bg-[var(--color-brand-olive)]/90 shadow-sm",
+    secondary: "bg-(--color-brand-olive) text-white hover:bg-(--color-brand-olive)/90 shadow-sm",
     ghost: "hover:bg-slate-100 hover:text-slate-900",
     link: "underline-offset-4 hover:underline text-slate-900",
   };

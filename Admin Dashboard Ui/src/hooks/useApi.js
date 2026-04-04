@@ -1,39 +1,89 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+
+const API_BASE = "http://localhost:8001";
+const ADMIN_HEADERS = {
+  "Authorization": "Bearer admin_token",
+  "Content-Type": "application/json",
+};
 
 /**
- * A boilerplate hook to handle real API calls later.
- * For now, you can keep the hardcoded UI or swap in this mock.
+ * Generic fetch wrapper for admin API calls.
  *
- * Usage Example:
- * const { data, loading, error } = useApi('/api/dashboard');
+ * @param {string} endpoint   – path relative to API_BASE
+ * @param {object} initialData – default value before first fetch
+ * @param {object} opts
+ * @param {number} [opts.pollingInterval] – ms between automatic re-fetches (0 = disabled)
  */
-export function useApi(endpoint, initialData = null) {
+export function useApi(endpoint, initialData = null, { pollingInterval = 0 } = {}) {
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const mountedRef = useRef(true);
 
-  useEffect(() => {
-    let isMounted = true;
-    setLoading(true);
-
-    // TODO: Replace this timeout mockup with a real fetch call
-    // fetch(`https://your-rahatpay-backend.com${endpoint}`, { headers: { ... } })
-    //   .then(res => res.json())
-    //   .then(json => { if (isMounted) setData(json) })
-    //   .catch(err => { if (isMounted) setError(err) })
-    //   .finally(() => { if (isMounted) setLoading(false) });
-
-    const timer = setTimeout(() => {
-      if (isMounted) {
-        setLoading(false);
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}${endpoint}`, { headers: ADMIN_HEADERS });
+      if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+      const json = await res.json();
+      if (mountedRef.current) {
+        setData(json);
+        setError(null);
       }
-    }, 500);
-
-    return () => {
-      isMounted = false;
-      clearTimeout(timer);
-    };
+    } catch (err) {
+      console.error(`API Fetch Error [${endpoint}]:`, err);
+      if (mountedRef.current) setError(err);
+    } finally {
+      if (mountedRef.current) setLoading(false);
+    }
   }, [endpoint]);
 
-  return { data, loading, error };
+  // Initial fetch
+  useEffect(() => {
+    mountedRef.current = true;
+    setLoading(true);
+    fetchData();
+    return () => { mountedRef.current = false; };
+  }, [fetchData]);
+
+  // Optional polling
+  useEffect(() => {
+    if (!pollingInterval || pollingInterval <= 0) return;
+    const id = setInterval(fetchData, pollingInterval);
+    return () => clearInterval(id);
+  }, [fetchData, pollingInterval]);
+
+  return { data, loading, error, refetch: fetchData };
+}
+
+/**
+ * Fire-and-forget POST / PATCH / PUT helper.
+ * Returns a callable `execute(body?)` and tracks loading + error.
+ */
+export function useApiMutation(endpoint, method = "POST") {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
+
+  const execute = useCallback(async (body = {}) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_BASE}${endpoint}`, {
+        method,
+        headers: ADMIN_HEADERS,
+        body: JSON.stringify(body),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.detail || `HTTP ${res.status}`);
+      setData(json);
+      return json;
+    } catch (err) {
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [endpoint, method]);
+
+  return { execute, loading, error, data };
 }

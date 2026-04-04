@@ -35,7 +35,7 @@ export function Topbar({ toggleMobile }) {
         <div>
           <h1 className="text-sm font-semibold text-slate-800">{pageTitle}</h1>
           <div className="flex items-center text-[10px] md:text-[11px] text-slate-500 mt-0.5 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)] shadow-[0_0_4px_var(--color-success)] mr-1.5 animate-pulse shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-(--color-success) shadow-[0_0_4px_var(--color-success)] mr-1.5 animate-pulse shrink-0" />
             <span className="truncate max-w-[120px] sm:max-w-none">Live · Last refresh 2 min ago</span>
           </div>
         </div>
@@ -60,7 +60,7 @@ export function Topbar({ toggleMobile }) {
         <div className="hidden sm:block w-px h-5 bg-slate-200 mx-1" />
         
         <div className="flex items-center gap-2 text-xs font-medium text-slate-600 shrink-0 ml-1">
-          <UserCircle className="w-6 h-6 text-[var(--color-primary)]" />
+          <UserCircle className="w-6 h-6 text-(--color-primary)" />
           <span className="hidden md:inline">ops@rahatpay.in</span>
         </div>
       </div>

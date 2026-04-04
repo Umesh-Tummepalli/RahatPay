@@ -112,7 +112,7 @@ export function Sidebar({ isMobileOpen, closeMobile }) {
                       cn(
                         "flex items-center gap-3 px-3 py-2 text-sm rounded-md transition-colors relative group",
                         isActive
-                          ? "text-[var(--color-primary)] bg-[var(--color-primary)]/10 font-medium"
+                          ? "text-(--color-primary) bg-(--color-primary)/10 font-medium"
                           : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                       )
                     }
@@ -122,19 +122,19 @@ export function Sidebar({ isMobileOpen, closeMobile }) {
                         {isActive && (
                           <motion.div
                             layoutId="sidebar-active"
-                            className="absolute left-0 w-1 h-5 bg-[var(--color-primary)] rounded-r-md"
+                            className="absolute left-0 w-1 h-5 bg-(--color-primary) rounded-r-md"
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                           />
                         )}
                         <item.icon
                           className={cn(
                             "w-4 h-4 transition-colors",
-                            isActive ? "text-[var(--color-primary)]" : "text-slate-400 group-hover:text-slate-600"
+                            isActive ? "text-(--color-primary)" : "text-slate-400 group-hover:text-slate-600"
                           )}
                         />
                         <span className="truncate">{item.label}</span>
                         {item.badge && (
-                          <span className="ml-auto bg-[var(--color-danger)]/10 text-[var(--color-danger)] text-[10px] px-2 py-0.5 rounded-full font-mono font-medium shrink-0">
+                          <span className="ml-auto bg-(--color-danger)/10 text-(--color-danger) text-[10px] px-2 py-0.5 rounded-full font-mono font-medium shrink-0">
                             {item.badge}
                           </span>
                         )}
