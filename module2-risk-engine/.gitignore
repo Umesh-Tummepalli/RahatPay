@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+models/zone_risk_model.pkl
+data/processed/zone_features.csv

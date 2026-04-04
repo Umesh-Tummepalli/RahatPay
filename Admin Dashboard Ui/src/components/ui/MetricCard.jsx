@@ -20,26 +20,26 @@ export function MetricCard({ title, value, subtext, trend, className }) {
           </div>
           <div className="flex items-center text-[11px] font-medium mt-1">
             {trend === "up" && (
-              <span className="flex items-center text-[var(--color-success)] font-medium bg-[var(--color-success)]/10 px-1 rounded-sm mr-2">
+              <span className="flex items-center text-(--color-success) font-medium bg-(--color-success)/10 px-1 rounded-sm mr-2">
                 <ArrowUpRight className="w-3 h-3 mr-0.5" />
               </span>
             )}
             {trend === "down" && (
-              <span className="flex items-center text-[var(--color-danger)] font-medium bg-[var(--color-danger)]/10 px-1 rounded-sm mr-2">
+              <span className="flex items-center text-(--color-danger) font-medium bg-(--color-danger)/10 px-1 rounded-sm mr-2">
                 <ArrowDownRight className="w-3 h-3 mr-0.5" />
               </span>
             )}
             {trend === "warn" && (
-              <span className="flex items-center text-[var(--color-warning)] font-medium bg-[var(--color-warning)]/10 px-1 rounded-sm mr-2">
+              <span className="flex items-center text-(--color-warning) font-medium bg-(--color-warning)/10 px-1 rounded-sm mr-2">
                 <AlertCircle className="w-3 h-3 mr-0.5" />
               </span>
             )}
             <span
               className={cn(
                 "text-slate-500",
-                trend === "up" && "text-[var(--color-success)]",
-                trend === "down" && "text-[var(--color-danger)]",
-                trend === "warn" && "text-[var(--color-warning)]"
+                trend === "up" && "text-(--color-success)",
+                trend === "down" && "text-(--color-danger)",
+                trend === "warn" && "text-(--color-warning)"
               )}
             >
               {subtext}

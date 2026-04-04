@@ -44,7 +44,7 @@ export default function Isolation() {
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-[10px] w-8">0.91</span>
                       <div className="flex-1 h-1.5 bg-slate-100 rounded-full">
-                        <div className="h-full bg-[var(--color-danger)] rounded-full" style={{ width: "91%" }} />
+                        <div className="h-full bg-(--color-danger) rounded-full" style={{ width: "91%" }} />
                       </div>
                     </div>
                   </td>
@@ -59,7 +59,7 @@ export default function Isolation() {
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-[10px] w-8">0.85</span>
                       <div className="flex-1 h-1.5 bg-slate-100 rounded-full">
-                        <div className="h-full bg-[var(--color-danger)] rounded-full" style={{ width: "85%" }} />
+                        <div className="h-full bg-(--color-danger) rounded-full" style={{ width: "85%" }} />
                       </div>
                     </div>
                   </td>

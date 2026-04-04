@@ -20,19 +20,19 @@ export default function Config() {
             <CardContent className="space-y-4 text-xs">
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Bronze — monthly premium (₹)</span>
-                <input type="number" defaultValue="79" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="79" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Bronze — recovery %</span>
-                <input type="number" defaultValue="50" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="50" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Silver — monthly premium (₹)</span>
-                <input type="number" defaultValue="129" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="129" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Max payout per event (₹)</span>
-                <input type="number" defaultValue="2000" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="2000" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
             </CardContent>
           </Card>
@@ -44,11 +44,11 @@ export default function Config() {
             <CardContent className="space-y-4 text-xs">
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Isolation Forest run time</span>
-                <input type="time" defaultValue="02:00" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="time" defaultValue="02:00" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">API sync interval (min)</span>
-                <input type="number" defaultValue="5" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="5" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
             </CardContent>
           </Card>
@@ -62,15 +62,15 @@ export default function Config() {
             <CardContent className="space-y-4 text-xs">
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Max workers per zone</span>
-                <input type="number" defaultValue="30" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="30" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Max referral chain depth</span>
-                <input type="number" defaultValue="4" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="4" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">GPS zone tolerance (km)</span>
-                <input type="number" defaultValue="2" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-[var(--color-primary)]" />
+                <input type="number" defaultValue="2" className="bg-slate-50 border border-slate-200 rounded px-2 py-1 w-24 text-right font-mono outline-none focus:border-(--color-primary)" />
               </div>
             </CardContent>
           </Card>
