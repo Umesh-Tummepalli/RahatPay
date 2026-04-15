@@ -64,7 +64,9 @@ async def _dedupe_exists(
                 DisruptionEvent.affected_zone == zone_id,
                 DisruptionEvent.event_type == event_type,
                 DisruptionEvent.event_start >= cutoff,
-                DisruptionEvent.processing_status.in_(["pending", "processing"]),
+                # Include processed events in dedupe window so we don't re-create
+                # duplicate events every cycle after Person 3 completes processing.
+                DisruptionEvent.processing_status.in_(["pending", "processing", "processed"]),
             )
         )
         .order_by(desc(DisruptionEvent.event_start))

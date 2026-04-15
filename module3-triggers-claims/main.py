@@ -26,6 +26,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"), override=False)
 
 from routes import admin  # noqa: E402
 from routes.triggers import router as triggers_router  # noqa: E402
+from routes.claims import router as claims_router  # noqa: E402
 from db.connection import init_db, close_db  # noqa: E402
 from triggers.monitor import start_trigger_polling_loop  # noqa: E402
 
@@ -73,6 +74,7 @@ app.add_middleware(
 
 app.include_router(admin.router)
 app.include_router(triggers_router)
+app.include_router(claims_router)
 
 
 @app.get("/health")

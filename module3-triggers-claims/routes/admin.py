@@ -12,6 +12,7 @@ from db.connection import get_db
 from models.rider import Rider
 from models.policy import Policy, Claim, DisruptionEvent, Payout
 from config import TIER_CONFIG
+from claims.processor import process_disruption_claims
 
 logger = logging.getLogger(__name__)
 
@@ -96,114 +97,23 @@ async def simulate_disaster(
             trigger_data={"source": "admin_simulation", "auto_seeded": True},
             event_start=now,
             event_end=event_end_time,
-            processing_status="processed"
+            processing_status="pending"
         )
         db.add(event)
         await db.flush()  # to get event.id
         
         logger.info(f"Created disruption event ID: {event.id}")
-
-        # 2. Find all eligible riders in the zone with active policies.
-        rider_stmt = select(Rider).where(
-            or_(
-                Rider.zone1_id == request.affected_zone,
-                Rider.zone2_id == request.affected_zone,
-                Rider.zone3_id == request.affected_zone
-            )
-        )
-        rider_result = await db.execute(rider_stmt)
-        riders = rider_result.scalars().all()
-        
-        logger.info(f"Found {len(riders)} riders in zone {request.affected_zone}")
-
-        eligible_claim_inputs = []
-
-        for r in riders:
-            # Check active policy
-            pol_stmt = select(Policy).where(
-                and_(
-                    Policy.rider_id == r.id,
-                    Policy.status == "active",
-                    Policy.cycle_end_date >= date.today()
-                )
-            )
-            pol_result = await db.execute(pol_stmt)
-            policy = pol_result.scalar_one_or_none()
-
-            if not policy:
-                logger.debug(f"Rider {r.id} has no active policy")
-                continue
-
-            # Check coverage trigger
-            if not _event_is_covered(policy.tier, request.event_type):
-                logger.debug(f"Policy {policy.id} tier {policy.tier} doesn't cover {request.event_type}")
-                continue
-
-            rate = float(r.baseline_hourly_rate) if r.baseline_hourly_rate else 100.0
-            calculated = request.lost_hours * rate * request.severity_rate
-            cap = float(policy.weekly_payout_cap)
-            final_amt = min(calculated, cap)
-            # Global max constraint
-            final_amt = min(final_amt, 5000.0)
-
-            eligible_claim_inputs.append(
-                {
-                    "rider": r,
-                    "policy": policy,
-                    "rate": rate,
-                    "calculated": calculated,
-                    "final_amt": final_amt,
-                }
-            )
-
-        logger.info(f"Found {len(eligible_claim_inputs)} eligible claims")
-
-        created_claims = 0
-        total_payout_calculated = 0.0
-        payout_records_created = 0
-        workers_impacted = 0
-
-        # All claims start as "pending" to show up in the claims queue
-        # Admin can then approve/reject them manually
-        for idx, item in enumerate(eligible_claim_inputs):
-            r = item["rider"]
-            policy = item["policy"]
-            rate = item["rate"]
-            calculated = item["calculated"]
-            final_amt = item["final_amt"]
-
-            claim = Claim(
-                rider_id=r.id,
-                policy_id=policy.id,
-                disruption_event_id=event.id,
-                gate_results={"simulation": True, "auto_seeded": True},
-                is_eligible=True,
-                lost_hours=request.lost_hours,
-                hourly_rate=rate,
-                severity_rate=request.severity_rate,
-                calculated_payout=calculated,
-                final_payout=final_amt,
-                status="pending"  # All simulation claims start as pending
-            )
-            db.add(claim)
-            await db.flush()
-            created_claims += 1
-            workers_impacted += 1
-            total_payout_calculated += final_amt
-
-            logger.info(f"Created claim {claim.id} for rider {r.id} (policy tier: {policy.tier}) - Status: pending")
-
+        result = await process_disruption_claims(event.id, db)
         await db.commit()
-        
-        logger.info(f"Disaster simulation complete: {created_claims} claims, {payout_records_created} payouts")
 
         return {
             "message": "Disaster simulation complete",
             "event_id": event.id,
-            "workers_impacted": workers_impacted,
-            "claims_created": created_claims,
-            "payouts_created": payout_records_created,
-            "total_payout_estimated": round(total_payout_calculated, 2)
+            "workers_impacted": result.get("total_affected", 0),
+            "claims_created": len(result.get("claims", [])),
+            "payouts_created": 0,
+            "total_payout_estimated": result.get("total_payout", 0.0),
+            "processor_summary": result,
         }
     except Exception as e:
         logger.error(f"Disaster simulation failed: {e}", exc_info=True)
