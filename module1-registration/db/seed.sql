@@ -6,33 +6,33 @@
 -- ZONES (Chennai, Mumbai, Bangalore, Delhi)
 -- risk_multiplier from Module 2 XGBoost model output
 -- ============================================================
-INSERT INTO zones (zone_id, city, area_name, risk_multiplier, polygon) 
+INSERT INTO zones (zone_id, city, area_name, risk_multiplier, polygon, is_active, registration_cap) 
 OVERRIDING SYSTEM VALUE
 VALUES
 -- Chennai
-(1, 'Chennai',   'George Town',          1.20, '[{"lat": 13.0827, "lng": 80.2707}, {"lat": 13.0850, "lng": 80.2750}, {"lat": 13.0800, "lng": 80.2780}]'::jsonb),
-(2, 'Chennai',   'Sowcarpet',            1.15, '[{"lat": 13.0897, "lng": 80.2787}, {"lat": 13.0950, "lng": 80.2850}, {"lat": 13.0850, "lng": 80.2880}]'::jsonb),
-(3, 'Chennai',   'Egmore',               1.10, '[{"lat": 13.0783, "lng": 80.2603}, {"lat": 13.0820, "lng": 80.2650}, {"lat": 13.0730, "lng": 80.2680}]'::jsonb),
-(4, 'Chennai',   'Nungambakkam',         1.05, '[{"lat": 13.0595, "lng": 80.2425}, {"lat": 13.0650, "lng": 80.2480}, {"lat": 13.0550, "lng": 80.2500}]'::jsonb),
-(5, 'Chennai',   'Adyar',                1.00, '[{"lat": 13.0012, "lng": 80.2565}, {"lat": 13.0100, "lng": 80.2650}, {"lat": 12.9900, "lng": 80.2680}]'::jsonb),
-(6, 'Chennai',   'Anna Nagar',           0.95, '[{"lat": 13.0850, "lng": 80.2100}, {"lat": 13.0900, "lng": 80.2200}, {"lat": 13.0800, "lng": 80.2250}]'::jsonb),
-(7, 'Chennai',   'Ambattur Industrial',  1.25, '[{"lat": 13.1143, "lng": 80.1548}, {"lat": 13.1200, "lng": 80.1600}, {"lat": 13.1100, "lng": 80.1650}]'::jsonb),
-(8, 'Chennai',   'Perungudi',            1.10, '[{"lat": 12.9654, "lng": 80.2461}, {"lat": 12.9700, "lng": 80.2500}, {"lat": 12.9600, "lng": 80.2550}]'::jsonb),
+(1, 'Chennai',   'George Town',          1.20, '[{"lat": 13.0827, "lng": 80.2707}, {"lat": 13.0850, "lng": 80.2750}, {"lat": 13.0800, "lng": 80.2780}]'::jsonb, TRUE, 1000),
+(2, 'Chennai',   'Sowcarpet',            1.15, '[{"lat": 13.0897, "lng": 80.2787}, {"lat": 13.0950, "lng": 80.2850}, {"lat": 13.0850, "lng": 80.2880}]'::jsonb, TRUE, 1000),
+(3, 'Chennai',   'Egmore',               1.10, '[{"lat": 13.0783, "lng": 80.2603}, {"lat": 13.0820, "lng": 80.2650}, {"lat": 13.0730, "lng": 80.2680}]'::jsonb, TRUE, 1000),
+(4, 'Chennai',   'Nungambakkam',         1.05, '[{"lat": 13.0595, "lng": 80.2425}, {"lat": 13.0650, "lng": 80.2480}, {"lat": 13.0550, "lng": 80.2500}]'::jsonb, TRUE, 1000),
+(5, 'Chennai',   'Adyar',                1.00, '[{"lat": 13.0012, "lng": 80.2565}, {"lat": 13.0100, "lng": 80.2650}, {"lat": 12.9900, "lng": 80.2680}]'::jsonb, TRUE, 1000),
+(6, 'Chennai',   'Anna Nagar',           0.95, '[{"lat": 13.0850, "lng": 80.2100}, {"lat": 13.0900, "lng": 80.2200}, {"lat": 13.0800, "lng": 80.2250}]'::jsonb, TRUE, 1000),
+(7, 'Chennai',   'Ambattur Industrial',  1.25, '[{"lat": 13.1143, "lng": 80.1548}, {"lat": 13.1200, "lng": 80.1600}, {"lat": 13.1100, "lng": 80.1650}]'::jsonb, TRUE, 1000),
+(8, 'Chennai',   'Perungudi',            1.10, '[{"lat": 12.9654, "lng": 80.2461}, {"lat": 12.9700, "lng": 80.2500}, {"lat": 12.9600, "lng": 80.2550}]'::jsonb, TRUE, 1000),
 -- Mumbai
-(9, 'Mumbai',    'Fort',                 1.30, '[{"lat": 18.9322, "lng": 72.8315}, {"lat": 18.9400, "lng": 72.8350}, {"lat": 18.9250, "lng": 72.8400}]'::jsonb),
-(10, 'Mumbai',   'Bandra West',          1.20, '[{"lat": 19.0596, "lng": 72.8295}, {"lat": 19.0650, "lng": 72.8350}, {"lat": 19.0500, "lng": 72.8400}]'::jsonb),
-(11, 'Mumbai',   'Goregaon',             1.15, '[{"lat": 19.1646, "lng": 72.8493}, {"lat": 19.1700, "lng": 72.8550}, {"lat": 19.1600, "lng": 72.8600}]'::jsonb),
-(12, 'Mumbai',   'Kurla',                1.35, '[{"lat": 19.0728, "lng": 72.8826}, {"lat": 19.0800, "lng": 72.8900}, {"lat": 19.0650, "lng": 72.8950}]'::jsonb),
+(9, 'Mumbai',    'Fort',                 1.30, '[{"lat": 18.9322, "lng": 72.8315}, {"lat": 18.9400, "lng": 72.8350}, {"lat": 18.9250, "lng": 72.8400}]'::jsonb, TRUE, 1000),
+(10, 'Mumbai',   'Bandra West',          1.20, '[{"lat": 19.0596, "lng": 72.8295}, {"lat": 19.0650, "lng": 72.8350}, {"lat": 19.0500, "lng": 72.8400}]'::jsonb, TRUE, 1000),
+(11, 'Mumbai',   'Goregaon',             1.15, '[{"lat": 19.1646, "lng": 72.8493}, {"lat": 19.1700, "lng": 72.8550}, {"lat": 19.1600, "lng": 72.8600}]'::jsonb, TRUE, 1000),
+(12, 'Mumbai',   'Kurla',                1.35, '[{"lat": 19.0728, "lng": 72.8826}, {"lat": 19.0800, "lng": 72.8900}, {"lat": 19.0650, "lng": 72.8950}]'::jsonb, TRUE, 1000),
 -- Bangalore
-(13, 'Bangalore', 'MG Road',             1.00, '[{"lat": 12.9716, "lng": 77.5946}, {"lat": 12.9800, "lng": 77.6000}, {"lat": 12.9650, "lng": 77.6050}]'::jsonb),
-(14, 'Bangalore', 'Koramangala',         1.05, '[{"lat": 12.9279, "lng": 77.6271}, {"lat": 12.9350, "lng": 77.6350}, {"lat": 12.9200, "lng": 77.6400}]'::jsonb),
-(15, 'Bangalore', 'Whitefield',          1.10, '[{"lat": 12.9698, "lng": 77.7499}, {"lat": 12.9800, "lng": 77.7600}, {"lat": 12.9600, "lng": 77.7650}]'::jsonb),
-(16, 'Bangalore', 'Electronic City',     1.08, '[{"lat": 12.8452, "lng": 77.6602}, {"lat": 12.8550, "lng": 77.6700}, {"lat": 12.8350, "lng": 77.6750}]'::jsonb),
+(13, 'Bangalore', 'MG Road',             1.00, '[{"lat": 12.9716, "lng": 77.5946}, {"lat": 12.9800, "lng": 77.6000}, {"lat": 12.9650, "lng": 77.6050}]'::jsonb, TRUE, 1000),
+(14, 'Bangalore', 'Koramangala',         1.05, '[{"lat": 12.9279, "lng": 77.6271}, {"lat": 12.9350, "lng": 77.6350}, {"lat": 12.9200, "lng": 77.6400}]'::jsonb, TRUE, 1000),
+(15, 'Bangalore', 'Whitefield',          1.10, '[{"lat": 12.9698, "lng": 77.7499}, {"lat": 12.9800, "lng": 77.7600}, {"lat": 12.9600, "lng": 77.7650}]'::jsonb, TRUE, 1000),
+(16, 'Bangalore', 'Electronic City',     1.08, '[{"lat": 12.8452, "lng": 77.6602}, {"lat": 12.8550, "lng": 77.6700}, {"lat": 12.8350, "lng": 77.6750}]'::jsonb, TRUE, 1000),
 -- Delhi
-(17, 'Delhi',     'Connaught Place',     1.25, '[{"lat": 28.6304, "lng": 77.2177}, {"lat": 28.6400, "lng": 77.2250}, {"lat": 28.6200, "lng": 77.2300}]'::jsonb),
-(18, 'Delhi',     'Saket',               1.15, '[{"lat": 28.5246, "lng": 77.2066}, {"lat": 28.5350, "lng": 77.2150}, {"lat": 28.5150, "lng": 77.2200}]'::jsonb),
-(19, 'Delhi',     'Badarpur',            1.40, '[{"lat": 28.4907, "lng": 77.3060}, {"lat": 28.5000, "lng": 77.3150}, {"lat": 28.4800, "lng": 77.3200}]'::jsonb),
-(20, 'Delhi',     'Shahdara',            1.35, '[{"lat": 28.6946, "lng": 77.2917}, {"lat": 28.7050, "lng": 77.3000}, {"lat": 28.6850, "lng": 77.3050}]'::jsonb)
+(17, 'Delhi',     'Connaught Place',     1.25, '[{"lat": 28.6304, "lng": 77.2177}, {"lat": 28.6400, "lng": 77.2250}, {"lat": 28.6200, "lng": 77.2300}]'::jsonb, TRUE, 1000),
+(18, 'Delhi',     'Saket',               1.15, '[{"lat": 28.5246, "lng": 77.2066}, {"lat": 28.5350, "lng": 77.2150}, {"lat": 28.5150, "lng": 77.2200}]'::jsonb, TRUE, 1000),
+(19, 'Delhi',     'Badarpur',            1.40, '[{"lat": 28.4907, "lng": 77.3060}, {"lat": 28.5000, "lng": 77.3150}, {"lat": 28.4800, "lng": 77.3200}]'::jsonb, TRUE, 1000),
+(20, 'Delhi',     'Shahdara',            1.35, '[{"lat": 28.6946, "lng": 77.2917}, {"lat": 28.7050, "lng": 77.3000}, {"lat": 28.6850, "lng": 77.3050}]'::jsonb, TRUE, 1000)
 ON CONFLICT (zone_id) DO UPDATE SET
     risk_multiplier = EXCLUDED.risk_multiplier,
     area_name       = EXCLUDED.area_name,

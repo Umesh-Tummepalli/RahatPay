@@ -9,6 +9,7 @@ from pydantic_settings import BaseSettings
 from pydantic import Field, field_validator
 from functools import lru_cache
 from typing import Optional
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 
 
 class Settings(BaseSettings):
@@ -34,7 +35,22 @@ class Settings(BaseSettings):
                 v = "postgresql+asyncpg://" + v[len("postgresql://"):]
             elif v.startswith("postgres://"):
                 v = "postgresql+asyncpg://" + v[len("postgres://"):]
-            v = v.replace("?sslmode=disable", "").replace("&sslmode=disable", "")
+            # asyncpg driver doesn't understand libpq-style sslmode query param.
+            # If present (e.g. sslmode=require from Neon), strip it from the URL.
+            try:
+                parsed = urlparse(v)
+                if parsed.query and "sslmode=" in parsed.query:
+                    q = [(k, val) for (k, val) in parse_qsl(parsed.query, keep_blank_values=True) if k.lower() != "sslmode"]
+                    parsed = parsed._replace(query=urlencode(q))
+                    v = urlunparse(parsed)
+            except Exception:
+                # Best-effort fallback: strip common patterns
+                v = (
+                    v.replace("?sslmode=disable", "")
+                    .replace("&sslmode=disable", "")
+                    .replace("?sslmode=require", "")
+                    .replace("&sslmode=require", "")
+                )
         return v
 
     # ── Firebase ──────────────────────────────────────────────────────────────
@@ -51,6 +67,11 @@ class Settings(BaseSettings):
     # When False, Module 2 functions are called directly (same process).
     # When True, fall back to sensible defaults (for standalone dev).
     MODULE2_MOCK_MODE: bool = Field(default=True, env="MODULE2_MOCK_MODE")
+
+    # ── External APIs (Module 3 trigger polling) ─────────────────────────────
+    # Optional here so Module 3 can load a shared Settings object without
+    # Pydantic rejecting unknown env vars.
+    OPENWEATHERMAP_API_KEY: Optional[str] = Field(default=None, env="OPENWEATHERMAP_API_KEY")
 
     # ── Business Constants ────────────────────────────────────────────────────
     PREMIUM_FLOOR: float = 15.0          # ₹15 minimum weekly premium
