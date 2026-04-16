@@ -30,7 +30,9 @@ export function useApi(endpoint, initialData = null, { pollingInterval = 0 } = {
         setError(null);
       }
     } catch (err) {
-      console.error(`API Fetch Error [${endpoint}]:`, err);
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`[useApi] Fetch failed [${endpoint}]:`, err.message);
+      }
       if (mountedRef.current) setError(err);
     } finally {
       if (mountedRef.current) setLoading(false);

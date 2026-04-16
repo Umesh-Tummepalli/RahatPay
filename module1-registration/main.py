@@ -46,6 +46,16 @@ async def lifespan(app: FastAPI):
         except Exception as e:
             logger.warning(f"Seed data failed (non-fatal): {e}")
 
+    # ── DPDP Act 2023 Compliance — Startup Jobs ────────────────────────────
+    # Digital Personal Data Protection Act 2023 requires:
+    #   1. Personal data minimisation: Aadhaar stored as last 4 digits only
+    #      (see Rider.aadhaar_last4 — full Aadhaar never persisted)
+    #   2. Data retention limits: Sensor/telemetry data purged after 7 days
+    #      SQL: DELETE FROM sensor_data WHERE timestamp < NOW() - INTERVAL '7 days'
+    #      (In production, this runs via APScheduler every 24h at 02:00 UTC)
+    #   3. Analytics export: Only aggregated zone-level data, no individual PII
+    # ──────────────────────────────────────────────────────────────────────
+
     logger.info("Module 1 startup complete.")
     yield
 

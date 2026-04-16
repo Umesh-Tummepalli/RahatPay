@@ -4,6 +4,26 @@ config.py
 All configuration via environment variables.
 Provide a .env file for local development.
 """
+from dotenv import load_dotenv
+import os
+import logging as _logging
+
+# Always load .env from Module 1's own directory, regardless of CWD.
+_M1_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(_M1_BASE_DIR, ".env"), override=False)
+
+_raw_db_url = os.getenv("DATABASE_URL")
+_logging.getLogger(__name__).info(
+    "Loaded DATABASE_URL: %s",
+    _raw_db_url if _raw_db_url else "[NOT SET] -- check .env file in module1-registration/"
+)
+
+if not _raw_db_url:
+    raise ValueError(
+        "DATABASE_URL is not set. "
+        "Create a .env file in the module1-registration directory with:\n"
+        "  DATABASE_URL=postgresql+asyncpg://postgres:<PASSWORD>@localhost:5432/rahatpay"
+    )
 
 from pydantic_settings import BaseSettings
 from pydantic import Field, field_validator
@@ -21,8 +41,9 @@ class Settings(BaseSettings):
 
     # ── Database ──────────────────────────────────────────────────────────────
     # asyncpg driver required for async SQLAlchemy
+    # No default — DATABASE_URL MUST be provided via .env (fail-fast enforced above)
     DATABASE_URL: str = Field(
-        default="postgresql+asyncpg://rahatpay:rahatpay@localhost:5432/rahatpay",
+        ...,
         env="DATABASE_URL",
     )
     DB_ECHO: bool = Field(default=False, env="DB_ECHO")

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Badge } from "../components/ui/Badge";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { MetricCard } from "../components/ui/MetricCard";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
+import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
+import TriggerFeed from "../components/ui/TriggerFeed";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
 import { useApi } from "../hooks/useApi";
+import { GlobalApiStatus } from "../components/ui/StatusComponents";
+import * as api from "../lib/api";
+
 
 const ADMIN_HEADERS = {
   "Authorization": "Bearer admin_token",
@@ -65,7 +69,7 @@ export default function Dashboard() {
   };
 
   // ── Attack simulation ─────────────────────────────────────────────────────
-  const [attackLoading, setAttackLoading] = useState(null); // key of active attack
+  const [attackLoading, setAttackLoading] = useState(null);
   const [attackResult, setAttackResult] = useState(null);
 
   const handleSimulateAttack = async (attackType) => {
@@ -115,19 +119,20 @@ export default function Dashboard() {
     }
   };
 
-  // ── Platform health checks ────────────────────────────────────────────────
+  // ── Platform health checks (via API service layer) ────────────────────────
   const [healthStatus, setHealthStatus] = useState({
     module1: null, module2: null, module3: null,
   });
 
   useEffect(() => {
     const check = async () => {
-      const checks = await Promise.all([
-        fetch('/health').then(r => r.ok).catch(() => false),
-        fetch('/m2/health').then(r => r.ok).catch(() => false),
-        fetch('/m3/health').then(r => r.ok).catch(() => false),
-      ]);
-      setHealthStatus({ module1: checks[0], module2: checks[1], module3: checks[2] });
+      try {
+        const status = await api.checkAllHealth();
+        setHealthStatus(status);
+      } catch {
+        // checkAllHealth never throws — this is an extra safety net
+        setHealthStatus({ module1: false, module2: false, module3: false });
+      }
     };
     check();
     const id = setInterval(check, 15000);
@@ -330,6 +335,22 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* ── Live Trigger Feed ── */}
+      <Card className="border-l-4 border-l-emerald-500">
+        <CardHeader className="flex flex-row items-center justify-between pb-3">
+          <CardTitle>
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Live Autonomous Trigger Feed
+            </span>
+          </CardTitle>
+          <span className="text-[10px] text-slate-400 font-mono uppercase tracking-widest">Auto-poll 10s</span>
+        </CardHeader>
+        <CardContent>
+          <TriggerFeed maxEntries={50} />
+        </CardContent>
+      </Card>
 
       {/* ── Simulation Controls ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
