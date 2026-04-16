@@ -2,7 +2,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
+// ── Port Reference (AUTHORITATIVE) ────────────────────────────────────────────
+// Module 1 — Registration & Admin  → http://localhost:8000
+// Module 2 — Risk Engine & ML      → http://localhost:8002
+// Module 3 — Triggers & Claims     → http://localhost:8003
+// Admin Dashboard (this server)    → http://localhost:5000
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
@@ -10,12 +16,33 @@ export default defineConfig({
     port: 5000,
     allowedHosts: true,
     proxy: {
-      // Module 3 — Triggers & Claims Engine (port 8003), must come before /admin
-      '/admin/claims': {
+      // ── Module 3 routes — MUST come before Module 1 catch-all ───────────────
+
+      // Namespaced Module 3 prefix: /m3/* → http://localhost:8003/*
+      // Used for: /m3/admin/claims/live, /m3/admin/claims/{id}/override, etc.
+      '/m3': {
+        target: 'http://localhost:8003',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/m3/, ''),
+      },
+
+      // Module 3 trigger polling feed
+      '/api/triggers': {
         target: 'http://localhost:8003',
         changeOrigin: true,
       },
-      // Module 2 — Risk Engine & Premium Calculator (port 8002)
+
+      // ── Module 2 routes ──────────────────────────────────────────────────────
+
+      // Namespaced Module 2 prefix: /m2/* → http://localhost:8002/*
+      // Used for: /m2/health, /m2/api/model/info, etc.
+      '/m2': {
+        target: 'http://localhost:8002',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/m2/, ''),
+      },
+
+      // Module 2 direct API routes (no prefix rewrite needed)
       '/api/premium': {
         target: 'http://localhost:8002',
         changeOrigin: true,
@@ -32,19 +59,14 @@ export default defineConfig({
         target: 'http://localhost:8002',
         changeOrigin: true,
       },
-      // Module 2 health
-      '/m2/health': {
+      '/api/model': {
         target: 'http://localhost:8002',
-        rewrite: (path) => path.replace(/^\/m2/, ''),
         changeOrigin: true,
       },
-      // Module 3 health
-      '/m3/health': {
-        target: 'http://localhost:8003',
-        rewrite: (path) => path.replace(/^\/m3/, ''),
-        changeOrigin: true,
-      },
-      // Module 1 — Registration & Policy (port 8000), catch-all for admin routes
+
+      // ── Module 1 catch-all — MUST come last ─────────────────────────────────
+      // Module 1 — Registration & Admin → http://localhost:8000
+
       '/admin': {
         target: 'http://localhost:8000',
         changeOrigin: true,

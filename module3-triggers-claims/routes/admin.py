@@ -33,11 +33,11 @@ async def require_admin(authorization: Optional[str] = Header(None)):
 
 @router.get("/claims/live", dependencies=[Depends(require_admin)])
 async def get_live_claims(db: AsyncSession = Depends(get_db)):
-    """Fetch pending claims with policy tier information."""
+    """Fetch pending and in-review claims with policy tier information."""
     stmt = (
         select(Claim, Policy)
         .join(Policy, Policy.id == Claim.policy_id)
-        .where(Claim.status == 'pending')
+        .where(Claim.status.in_(["pending", "in_review"]))
         .order_by(Claim.created_at.desc())
         .limit(100)
     )

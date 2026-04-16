@@ -1,3 +1,16 @@
+"""
+main.py  (Module 3 — Triggers & Claims)
+----------------------------------------
+FastAPI application entry point.
+
+Runs standalone:
+    uvicorn main:app --reload --port 8003
+
+No manual environment variable injection required.
+No cross-module sys.path hacks.
+.env is loaded automatically from this directory.
+"""
+
 import os
 import sys
 import logging
@@ -7,27 +20,24 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
 
-# Ensure Module 3 imports its own `routes` package before Module 1 adds a
-# similarly named package to the import path.
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-MODULE1_DIR = os.path.abspath(os.path.join(BASE_DIR, "../module1-registration"))
+# ── Ensure Module 3's own packages take priority ──────────────────────────────
+# Insert this module's directory at index 0 so that `import config`,
+# `import db`, `import models` all resolve to Module 3's own copies,
+# NOT to any other module that might share the Python path.
+_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+if _BASE_DIR not in sys.path:
+    sys.path.insert(0, _BASE_DIR)
 
-if BASE_DIR not in sys.path:
-    sys.path.insert(0, BASE_DIR)
+# ── Load .env BEFORE importing anything that reads env vars ──────────────────
+from dotenv import load_dotenv  # noqa: E402
+load_dotenv(os.path.join(_BASE_DIR, ".env"), override=False)
 
-# Allow importing db, models, and config from the registration module (shared core)
-if MODULE1_DIR not in sys.path:
-    sys.path.append(MODULE1_DIR)
-
-# Load Module 3 local env first (non-committed)
-load_dotenv(os.path.join(BASE_DIR, ".env"), override=False)
-
-from routes import admin  # noqa: E402
+# ── Application imports (all resolve to Module 3's own packages) ─────────────
+from routes import admin          # noqa: E402
 from routes.triggers import router as triggers_router  # noqa: E402
-from routes.claims import router as claims_router  # noqa: E402
-from db.connection import init_db, close_db  # noqa: E402
+from routes.claims import router as claims_router      # noqa: E402
+from db.connection import init_db, close_db            # noqa: E402
 from triggers.monitor import start_trigger_polling_loop  # noqa: E402
 
 logging.basicConfig(

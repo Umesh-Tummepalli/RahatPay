@@ -15,6 +15,8 @@ import Zones from './pages/Zones';
 import Actuarial from './pages/Actuarial';
 import Platform from './pages/Platform';
 import Config from './pages/Config';
+import PredictiveAnalytics from './pages/PredictiveAnalytics';
+import StressTest from './pages/StressTest';
 
 const App = () => {
   return (
@@ -31,6 +33,8 @@ const App = () => {
           <Route path="/isolation" element={<Isolation />} />
           <Route path="/zones" element={<Zones />} />
           <Route path="/actuarial" element={<Actuarial />} />
+          <Route path="/predictive" element={<PredictiveAnalytics />} />
+          <Route path="/stress-test" element={<StressTest />} />
           <Route path="/platform" element={<Platform />} />
           <Route path="/config" element={<Config />} />
         </Route>

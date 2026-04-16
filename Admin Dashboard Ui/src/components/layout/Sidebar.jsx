@@ -12,6 +12,8 @@ import {
   Network,
   Map,
   Calculator,
+  TrendingUp,
+  FlaskConical,
   Server,
   Settings,
   X,
@@ -50,6 +52,8 @@ const NAV_GROUPS = [
     items: [
       { id: "zones", path: "/zones", icon: Map, label: "Zone Management" },
       { id: "actuarial", path: "/actuarial", icon: Calculator, label: "Actuarial Overview" },
+      { id: "predictive", path: "/predictive", icon: TrendingUp, label: "Predictive Analytics" },
+      { id: "stress-test", path: "/stress-test", icon: FlaskConical, label: "BCR Stress Test" },
     ],
   },
   {

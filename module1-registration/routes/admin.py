@@ -1569,3 +1569,124 @@ async def get_rider_earnings(
             "weekly_hours": float(rider.baseline_weekly_hours or 0),
         }
     }
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# PART B — BCR Stress Test Endpoint
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# IRDAI Parametric Insurance Guidelines (2023):
+#   Pricing is zone-specific and seasonally adjusted.
+#   Claims processing follows zero-touch parametric rules (no manual adjustment).
+#   Fraud detection uses GPS coordinates + claim density (no behavioral profiling).
+#
+# DPDP Act 2023 Compliance:
+#   - Aadhaar stored as last 4 digits only (see Rider.aadhaar_last4)
+#   - Analytics expose only aggregated zone-level data (no PII in stress test output)
+#   - Sensor data purge job: DELETE FROM sensor_data WHERE timestamp < NOW() - INTERVAL '7 days'
+#     (scheduled via APScheduler on startup in production)
+#
+# Social Security Code 2020, Section 38:
+#   Production platform engagement target: 90-day minimum.
+#   Demo/stress test: 14-day simulation window.
+# ──────────────────────────────────────────────────────────────────────────────
+
+class StressTestRequest(BaseModel):
+    sim_days: int = 14          # SSC 2020: demo = 14 days, production = 90 days
+    severity: float = 0.75      # Fraction of weekly income displaced per event
+
+
+@router.post("/stress-test", dependencies=[Depends(require_admin)])
+async def run_stress_test(
+    request: StressTestRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    BCR Stress Test — simulates N-day disruption scenario across all active zones.
+
+    Algorithm per zone:
+      1. Count active riders in the zone
+      2. Sum their weekly premiums (proportional to sim_days / 7)
+      3. Simulate a disruption: payout = severity * weekly_income, capped by weekly_payout_cap
+      4. BCR = total_simulated_payouts / total_simulated_premiums
+
+    Target: BCR < 0.70 (SUSTAINABLE) across all zones.
+    """
+    # IRDAI: Pricing uses zone-specific risk multipliers + seasonal adjustment.
+    sim_days = max(1, min(request.sim_days, 365))
+    severity = max(0.0, min(request.severity, 1.0))
+
+    # Fetch all active zones
+    zones_result = await db.execute(select(Zone).where(Zone.is_active.is_(True)).order_by(Zone.zone_id))
+    zones = zones_result.scalars().all()
+
+    zone_results = []
+    total_sim_premiums = 0.0
+    total_sim_payouts = 0.0
+
+    for zone in zones:
+        # Fetch riders in this zone with active policies
+        stmt = (
+            select(Rider, Policy)
+            .join(Policy, and_(Policy.rider_id == Rider.id, Policy.status == "active"))
+            .where(or_(Rider.zone1_id == zone.zone_id, Rider.zone2_id == zone.zone_id))
+        )
+        rows = await db.execute(stmt)
+        rider_policies = rows.all()
+
+        zone_weekly_premiums = 0.0
+        zone_sim_payouts = 0.0
+
+        for rider, policy in rider_policies:
+            weekly_premium = float(policy.weekly_premium or 0.0)
+            weekly_income = float(rider.baseline_weekly_income or 3500.0)
+            weekly_payout_cap = float(policy.weekly_payout_cap or weekly_income * 0.6)
+
+            # Scale premium by sim_days
+            sim_premium = weekly_premium * (sim_days / 7.0)
+
+            # Simulate payout: severity fraction of income, capped at tier payout_cap
+            raw_payout = weekly_income * severity * (sim_days / 7.0)
+            capped_payout = min(raw_payout, weekly_payout_cap * (sim_days / 7.0))
+
+            zone_weekly_premiums += sim_premium
+            zone_sim_payouts += capped_payout
+
+        bcr = zone_sim_payouts / zone_weekly_premiums if zone_weekly_premiums > 0 else 0.0
+        total_sim_premiums += zone_weekly_premiums
+        total_sim_payouts += zone_sim_payouts
+
+        # DPDP Act 2023: Only aggregated zone-level data exposed — no individual PII.
+        zone_results.append({
+            "zone_id": zone.zone_id,
+            "zone_name": f"{zone.city} — {zone.area_name}" if zone.area_name else zone.city,
+            "riders": len(rider_policies),
+            "weekly_premiums": round(zone_weekly_premiums, 2),
+            "simulated_payouts": round(zone_sim_payouts, 2),
+            "bcr": round(bcr, 4),
+            "status": (
+                "SUSTAINABLE" if bcr < 0.70
+                else "MONITOR" if bcr < 0.80
+                else "AT_RISK"
+            ),
+        })
+
+    total_bcr = total_sim_payouts / total_sim_premiums if total_sim_premiums > 0 else 0.0
+
+    return {
+        "summary": {
+            "total_bcr": round(total_bcr, 4),
+            "status": (
+                "SUSTAINABLE" if total_bcr < 0.70
+                else "MONITOR" if total_bcr < 0.80
+                else "AT_RISK"
+            ),
+            "sim_days": sim_days,
+            "severity": severity,
+            "total_premiums": round(total_sim_premiums, 2),
+            "total_payouts": round(total_sim_payouts, 2),
+            "zones_simulated": len(zone_results),
+        },
+        "zones": sorted(zone_results, key=lambda z: z["bcr"], reverse=True),
+    }
+
