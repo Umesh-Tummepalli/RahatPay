@@ -1,0 +1,85 @@
+modules = ["nodejs-20", "python-3.12", "web"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Module 1 Backend"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Module 3 Backend"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd 'Admin Dashboard Ui' && npm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow]]
+name = "Module 1 Backend"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd module1-registration && python -m uvicorn main:app --host 0.0.0.0 --port 8000"
+waitForPort = 8000
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Module 3 Backend"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd module3-triggers-claims && python -m uvicorn main:app --host 0.0.0.0 --port 8003"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
+
+[[ports]]
+localPort = 8003
+externalPort = 3001
+
+[deployment]
+deploymentTarget = "static"
+build = ["bash", "-c", "cd 'Admin Dashboard Ui' && npm run build"]
+publicDir = "Admin Dashboard Ui/dist"
+
+[userenv]
+
+[userenv.shared]
+ENVIRONMENT = "development"
+FIREBASE_MOCK_MODE = "True"
+DEBUG = "false"
