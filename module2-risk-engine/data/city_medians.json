@@ -1,0 +1,9 @@
+{
+  "chennai":   {"weekly_income": 3000, "weekly_hours": 50, "hourly_rate": 60.0},
+  "mumbai":    {"weekly_income": 3500, "weekly_hours": 50, "hourly_rate": 70.0},
+  "bangalore": {"weekly_income": 3200, "weekly_hours": 48, "hourly_rate": 66.67},
+  "delhi":     {"weekly_income": 2800, "weekly_hours": 45, "hourly_rate": 62.22},
+  "pune":      {"weekly_income": 3000, "weekly_hours": 50, "hourly_rate": 60.0},
+  "hyderabad": {"weekly_income": 2900, "weekly_hours": 48, "hourly_rate": 60.42},
+  "kolkata":   {"weekly_income": 2600, "weekly_hours": 46, "hourly_rate": 56.52}
+}

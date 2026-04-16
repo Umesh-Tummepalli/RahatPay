@@ -19,10 +19,44 @@ const subscriptionSplitData = [
   { name: 'Raksha', value: 1871, color: 'var(--color-warning)' },
 ];
 
+// Helper to format timestamps
+function formatTime(isoString) {
+  if (!isoString) return "—";
+  try {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  } catch {
+    return "—";
+  }
+}
+
+// Helper to get event severity badge color
+function getSeverityVariant(severity) {
+  if (!severity) return "gray";
+  const lower = String(severity).toLowerCase();
+  if (lower.includes("extreme")) return "red";
+  if (lower.includes("severe")) return "red";
+  if (lower.includes("high")) return "amber";
+  if (lower.includes("moderate")) return "blue";
+  return "gray";
+}
+
 export default function Dashboard() {
-  const { data: analytics, loading: analyticsLoading } = useApi('/admin/analytics/financial');
-  const { data: workers, loading: workersLoading } = useApi('/admin/workers');
-  const { data: fraud, loading: fraudLoading } = useApi('/admin/fraud/flagged');
+  const { data: analytics, loading: analyticsLoading } = useApi('/admin/analytics/financial', null, { baseUrl: 'module1' });
+  const { data: workers, loading: workersLoading } = useApi('/admin/workers', null, { baseUrl: 'module1' });
+  const { data: fraudModule1, loading: fraudLoading } = useApi('/admin/fraud/flagged', null, { baseUrl: 'module1' });
+  
+  // Module 3 live data with 10-second polling
+  const { data: pollingLog, loading: pollingLoading, error: pollingError } = useApi(
+    '/api/triggers/polling-log',
+    [],
+    { baseUrl: 'module3', pollingInterval: 10000 }
+  );
+  const { data: activeDisruptions, loading: disruptionsLoading, error: disruptionsError } = useApi(
+    '/api/triggers/active',
+    [],
+    { baseUrl: 'module3', pollingInterval: 10000 }
+  );
 
   const [seeding, setSeeding] = useState(false);
   const [seedResult, setSeedResult] = useState(null);
@@ -49,6 +83,14 @@ export default function Dashboard() {
       setSeeding(false);
     }
   };
+
+  // Safe array handling
+  const pollingLogArray = Array.isArray(pollingLog?.entries)
+    ? pollingLog.entries
+    : Array.isArray(pollingLog)
+      ? pollingLog
+      : [];
+  const activeDisruptionsArray = Array.isArray(activeDisruptions) ? activeDisruptions : [];
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
@@ -99,6 +141,104 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Live Polling Feed and Active Disruptions (Module 3) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="border-t-4 border-t-blue-500">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>🔴 Live polling feed (Module 3)</CardTitle>
+            <span className="text-xs font-medium text-blue-600">Updates every 10s</span>
+          </CardHeader>
+          <CardContent>
+            {pollingError && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded text-xs text-amber-800 mb-3">
+                ⚠️ Module 3 unavailable. Polling disabled. Make sure it's running on port 8003.
+              </div>
+            )}
+            {pollingLoading && pollingLogArray.length === 0 ? (
+              <div className="text-center py-4 text-slate-500 text-xs">Loading polling logs...</div>
+            ) : pollingLogArray.length > 0 ? (
+              <div className="max-h-[320px] overflow-y-auto space-y-2">
+                {pollingLogArray.slice(0, 15).map((poll, i) => (
+                  <div key={i} className="flex gap-2 border-b border-slate-100 pb-2 last:border-0 text-xs">
+                    <div className="w-2 h-2 rounded-full mt-1 shrink-0 bg-blue-500 animate-pulse" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 justify-between">
+                        <span className="font-medium text-slate-700">{poll.zone_name || poll.zone_id || "Zone"}</span>
+                        <span className="text-[10px] text-slate-400">{formatTime(poll.timestamp)}</span>
+                      </div>
+                    <div className="text-[11px] text-slate-600 mt-0.5">
+                        {poll.city && <span>{poll.city} · </span>}
+                        <span className="capitalize">{poll.event_type || "Polling"}</span>
+                        {poll.severity && <span> · {poll.severity}</span>}
+                      </div>
+                      {poll.measurements && (
+                        <div className="text-[10px] text-slate-500 mt-1">
+                          Rain {poll.measurements.rainfall_mm ?? "—"} · AQI {poll.measurements.aqi ?? "—"} · Temp {poll.measurements.temp_c ?? "—"}
+                        </div>
+                      )}
+                      {poll.action_taken && (
+                        <div className="text-[10px] text-green-700 mt-1">✓ {poll.action_taken}</div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-6 text-slate-500 text-xs">No polling logs yet. Triggers will appear here.</div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border-t-4 border-t-red-500">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>🚨 Active disruptions (Module 3)</CardTitle>
+            <Badge variant={activeDisruptionsArray.length > 0 ? "red" : "green"}>
+              {activeDisruptionsArray.length} active
+            </Badge>
+          </CardHeader>
+          <CardContent>
+            {disruptionsError && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded text-xs text-amber-800 mb-3">
+                ⚠️ Module 3 unavailable. Make sure it's running on port 8003.
+              </div>
+            )}
+            {disruptionsLoading && activeDisruptionsArray.length === 0 ? (
+              <div className="text-center py-4 text-slate-500 text-xs">Loading active disruptions...</div>
+            ) : activeDisruptionsArray.length > 0 ? (
+              <div className="space-y-3">
+                {activeDisruptionsArray.slice(0, 8).map((disruption, i) => (
+                  <div key={i} className="p-3 rounded-md border-l-4 border-l-red-500 bg-red-50">
+                    <div className="flex items-start justify-between mb-1">
+                      <div>
+                        <div className="font-medium text-sm text-slate-900">
+                          {disruption.zone_name || disruption.zone_id || "Zone"}
+                        </div>
+                        <div className="text-xs text-slate-600 mt-0.5">
+                          {disruption.city && <span>{disruption.city} · </span>}
+                          <span className="capitalize">{disruption.event_type || "Unknown"}</span>
+                        </div>
+                      </div>
+                      <Badge variant={getSeverityVariant(disruption.severity)}>
+                        {disruption.severity || "N/A"}
+                      </Badge>
+                    </div>
+                    {disruption.description && (
+                      <p className="text-xs text-slate-600 mt-2">{disruption.description}</p>
+                    )}
+                    <div className="text-[10px] text-slate-500 mt-2 flex justify-between">
+                      <span>Started: {formatTime(disruption.start_time)}</span>
+                      {disruption.end_time && <span>End: {formatTime(disruption.end_time)}</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-6 text-slate-500 text-xs">No active disruptions. All systems nominal!</div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
@@ -110,8 +250,8 @@ export default function Dashboard() {
           <CardContent className="space-y-4">
             {fraudLoading ? (
                <div className="text-center py-4 text-slate-500 text-xs">Loading...</div>
-            ) : fraud && fraud.flagged_users ? (
-              fraud.flagged_users.slice(0, 4).map((f, i) => (
+            ) : fraudModule1 && fraudModule1.flagged_users ? (
+              fraudModule1.flagged_users.slice(0, 4).map((f, i) => (
                 <div key={i} className="flex gap-3 items-start border-b border-slate-100 pb-3 last:border-0">
                   <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-[0_0_5px_var(--color-danger)] ${f.risk_score > 0.9 ? 'bg-(--color-danger)' : 'bg-(--color-warning)'}`} />
                   <div>
@@ -246,7 +386,7 @@ export default function Dashboard() {
             </div>
             <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
               <span className="text-slate-500">Module 3 — Claims Engine</span>
-              <Badge variant="green">Port 8003</Badge>
+              <Badge variant={disruptionsError ? "amber" : "green"}>Port 8003</Badge>
             </div>
             <div className="flex justify-between items-center text-xs border-b border-slate-100 pb-3">
               <span className="text-slate-500">PostgreSQL DB</span>

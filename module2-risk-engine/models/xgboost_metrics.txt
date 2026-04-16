@@ -1,0 +1,52 @@
+{
+  "training_date": "2026-04-17T00:46:59.115888",
+  "gpu_accelerated": false,
+  "tree_method": "hist",
+  "device": "cpu",
+  "xgboost_version": "3.2.0",
+  "samples": 500,
+  "train_samples": 425,
+  "test_samples": 75,
+  "features": [
+    "avg_red_alert_days",
+    "flood_events_per_decade",
+    "avg_monsoon_rainfall_mm",
+    "aqi_exceedance_days",
+    "heatwave_days",
+    "civic_disruptions_per_year"
+  ],
+  "hyperparameters": {
+    "n_estimators": 200,
+    "max_depth": 6,
+    "learning_rate": 0.05,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0
+  },
+  "cv_metrics": {
+    "r2_mean": 0.9843591213226318,
+    "r2_std": 0.0034814869764241193,
+    "r2_scores": [
+      0.9887135624885559,
+      0.9851707220077515,
+      0.9791519641876221,
+      0.9870129823684692,
+      0.9817463755607605
+    ]
+  },
+  "test_metrics": {
+    "mae": 0.008545408956706524,
+    "mse": 0.00013106396363582462,
+    "rmse": 0.011448317065657495,
+    "r2": 0.9813464879989624
+  },
+  "feature_importance": {
+    "avg_monsoon_rainfall_mm": 0.3928007185459137,
+    "avg_red_alert_days": 0.164437398314476,
+    "flood_events_per_decade": 0.16164813935756683,
+    "civic_disruptions_per_year": 0.1303737461566925,
+    "heatwave_days": 0.11644262820482254,
+    "aqi_exceedance_days": 0.03429732099175453
+  }
+}

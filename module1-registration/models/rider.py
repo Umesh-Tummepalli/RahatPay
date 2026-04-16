@@ -124,6 +124,7 @@ class Rider(Base):
     policies    = relationship("Policy", back_populates="rider", cascade="all, delete-orphan")
     claims      = relationship("Claim", back_populates="rider")
     payouts     = relationship("Payout", back_populates="rider")
+    sensor_logs = relationship("SensorLog", back_populates="rider", cascade="all, delete-orphan")
     subscription_state = relationship(
         "SubscriptionState",
         back_populates="rider",

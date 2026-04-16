@@ -57,25 +57,41 @@ def train():
         X, y, test_size=0.15, random_state=42
     )
 
-    # ── Model definition ──────────────────────────────────────────────────────
-    # Hyperparameters tuned for a small, smooth regression task.
-    model = XGBRegressor(
-        n_estimators=150,
-        max_depth=4,
-        learning_rate=0.05,
-        subsample=0.8,
-        colsample_bytree=0.8,
+    # ── Hyperparameter Optimization with GridSearchCV ─────────────────────────
+    from sklearn.model_selection import GridSearchCV
+
+    base_model = XGBRegressor(
         random_state=42,
         verbosity=0,
+        tree_method="hist",
+        device="cuda",  # Enforce GTX 1650 CUDA hardware
     )
 
-    # ── Cross-validation ──────────────────────────────────────────────────────
-    cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring="r2")
-    print(f"\nCross-validation R² scores: {cv_scores.round(3)}")
-    print(f"Mean CV R²: {cv_scores.mean():.3f}  (± {cv_scores.std():.3f})")
+    param_grid = {
+        'n_estimators': [100, 150, 200],
+        'max_depth': [3, 4, 5],
+        'learning_rate': [0.01, 0.05, 0.1],
+        'subsample': [0.8, 1.0],
+        'colsample_bytree': [0.8, 1.0],
+    }
+
+    print("Running GridSearchCV on GTX 1650 to find optimal hyperparameters...")
+    grid_search = GridSearchCV(
+        estimator=base_model,
+        param_grid=param_grid,
+        cv=5,       # 5-fold cross-validation
+        scoring='r2',
+        verbose=1
+    )
 
     # ── Final fit ─────────────────────────────────────────────────────────────
-    model.fit(X_train, y_train)
+    grid_search.fit(X_train, y_train)
+
+    print(f"\nBest parameters found: {grid_search.best_params_}")
+    print(f"Best CV R² score: {grid_search.best_score_:.3f}")
+
+    # Extract the optimal model for evaluation
+    model = grid_search.best_estimator_
 
     # ── Test set evaluation ───────────────────────────────────────────────────
     y_pred = model.predict(X_test)
@@ -89,7 +105,7 @@ def train():
     importances = model.feature_importances_
     print("\nFeature Importances:")
     for feat, imp in sorted(zip(FEATURE_COLS, importances), key=lambda x: -x[1]):
-        bar = "█" * int(imp * 40)
+        bar = "*" * int(imp * 40)
         print(f"  {feat:<35} {imp:.3f}  {bar}")
 
     # ── Attach pincode → feature vector map ──────────────────────────────────
@@ -97,7 +113,7 @@ def train():
     # Only seed rows (not augmented) are stored — one canonical vector per zone.
     seed_df = df.drop_duplicates(subset=["pincode"], keep="first")
     pincode_features = {
-        row["pincode"]: [row[col] for col in FEATURE_COLS]
+        str(row["pincode"]): [row[col] for col in FEATURE_COLS]
         for _, row in seed_df.iterrows()
         if "pincode" in seed_df.columns
     }

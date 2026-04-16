@@ -12,7 +12,7 @@ Policy and rider management endpoints:
 """
 
 import logging
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Optional, List, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -247,6 +247,24 @@ class PayoutHistoryResponse(BaseModel):
     claims: list[ClaimHistoryItem]
 
 
+class SensorDataRequest(BaseModel):
+    gps_lat: Optional[float] = None
+    gps_lon: Optional[float] = None
+    gps_accuracy_meters: Optional[float] = None
+    accelerometer_variance: Optional[float] = None
+    gyroscope_variance: Optional[float] = None
+    magnetometer_variance: Optional[float] = None
+    wifi_ssid_count: Optional[int] = None
+    timestamp: Optional[datetime] = None
+
+
+class SensorDataResponse(BaseModel):
+    rider_id: int
+    snapshot_date: str
+    snapshot_stored: bool
+    message: str
+
+
 @router.get(
     "/rider/{rider_id}/payouts",
     response_model=PayoutHistoryResponse,
@@ -316,6 +334,65 @@ async def get_payout_history(
         approved_claims=int(stats.approved or 0),
         rejected_claims=int(stats.rejected or 0),
         claims=claims,
+    )
+
+
+@router.post(
+    "/rider/{rider_id}/sensor-data",
+    response_model=SensorDataResponse,
+    summary="Store latest rider sensor snapshot",
+    description=(
+        "Persists the latest sensor snapshot inside the existing daily_income_history "
+        "entry for that date so Module 3 can read it during eligibility Gate 4."
+    ),
+)
+async def store_sensor_snapshot(
+    rider_id: int,
+    request: SensorDataRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    rider = await _get_rider_or_404(rider_id, db)
+
+    snapshot_ts = request.timestamp or datetime.now(timezone.utc)
+    if snapshot_ts.tzinfo is None:
+        snapshot_ts = snapshot_ts.replace(tzinfo=timezone.utc)
+    snapshot_date = snapshot_ts.date().isoformat()
+
+    history = list(rider.daily_income_history or [])
+    day_entry = None
+    for entry in history:
+        if isinstance(entry, dict) and entry.get("date") == snapshot_date:
+            day_entry = entry
+            break
+
+    if day_entry is None:
+        day_entry = {
+            "date": snapshot_date,
+            "hours": 0.0,
+            "income": 0.0,
+            "orders": 0,
+        }
+        history.append(day_entry)
+
+    day_entry["latest_sensor_snapshot"] = {
+        "gps_lat": request.gps_lat,
+        "gps_lon": request.gps_lon,
+        "gps_accuracy_meters": request.gps_accuracy_meters,
+        "accelerometer_variance": request.accelerometer_variance,
+        "gyroscope_variance": request.gyroscope_variance,
+        "magnetometer_variance": request.magnetometer_variance,
+        "wifi_ssid_count": request.wifi_ssid_count,
+        "timestamp": snapshot_ts.isoformat(),
+    }
+
+    rider.daily_income_history = history
+    await db.commit()
+
+    return SensorDataResponse(
+        rider_id=rider_id,
+        snapshot_date=snapshot_date,
+        snapshot_stored=True,
+        message="Latest sensor snapshot stored successfully.",
     )
 
 

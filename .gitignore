@@ -1,9 +1,3 @@
-# ===========================================
-# RahatPay Project - Global .gitignore
-# ===========================================
-
-# --- Python ---
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -57,8 +51,7 @@ coverage.xml
 
 # Environments
 .env
-.env.local
-.env.*.local
+.env*
 .venv
 env/
 venv/
@@ -219,8 +212,7 @@ module1-registration/coverage.xml
 module1-registration/htmlcov/
 
 # Module 2 - Risk Engine
-module2-risk-engine/models/
-module2-risk-engine/*.pkl
+# Keep trained model artifacts and processed training outputs versioned.
 module2-risk-engine/*.joblib
 module2-risk-engine/*.h5
 module2-risk-engine/checkpoints/
@@ -264,6 +256,17 @@ firebase-adminsdk-*.json
 .vercel/output/
 .vscode
 
-SIMULATION_INTEGRATION.md
+# --- Replit ---
+.replit
+replit.nix
+.config/replit/
+
 .qwen
 Ai gen Docs
+.local/
+
+# Markdown files
+*.md
+**/*.md
+!README.md
+!**/README.md

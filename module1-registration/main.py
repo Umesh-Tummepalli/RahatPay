@@ -22,6 +22,7 @@ from routes.registration import router as registration_router
 from routes.policy import router as policy_router
 from routes.admin import router as admin_router
 from routes.subscription import router as subscription_router
+from routes.sensor_data import router as sensor_data_router
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -126,6 +127,7 @@ app.include_router(auth_router,          prefix="")
 app.include_router(registration_router,  prefix="")
 app.include_router(policy_router,        prefix="")
 app.include_router(subscription_router,  prefix="")
+app.include_router(sensor_data_router,   prefix="")
 app.include_router(admin_router,         prefix="")
 
 

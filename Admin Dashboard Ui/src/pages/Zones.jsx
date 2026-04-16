@@ -3,6 +3,7 @@ import { MetricCard } from "../components/ui/MetricCard";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
+import { useApi } from "../hooks/useApi";
 
 function formatRelative(value) {
   if (!value) return "No recent event";
@@ -19,6 +20,13 @@ export default function Zones() {
   const [zones, setZones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pageError, setPageError] = useState(null);
+
+  // Module 3: Active disruptions (optional enhancement)
+  const { data: disruptions, loading: disruptionsLoading, error: disruptionsError } = useApi(
+    '/api/triggers/active',
+    [],
+    { baseUrl: 'module3' }
+  );
 
   const [simEventType, setSimEventType] = useState("heavy_rain");
   const [simSeverity, setSimSeverity] = useState("severe_l1");
@@ -99,7 +107,12 @@ export default function Zones() {
           <MetricCard title="Active zones" value={loading ? "..." : zones.length} subtext="Total tracked zones" trend="none" />
           <MetricCard title="High-risk zones" value={loading ? "..." : zones.filter(z => z.risk_multiplier > 1.2).length} subtext="Risk > 1.2x" trend="warn" />
           <MetricCard title="Zones with events" value={loading ? "..." : zones.filter(z => z.recent_event_count > 0).length} subtext="Last 7 days" trend="up" />
-          <MetricCard title="Recent event volume" value={loading ? "..." : zones.reduce((sum, z) => sum + (z.recent_event_count || 0), 0)} subtext="Tracked in registry" trend="none" />
+          <MetricCard 
+            title="Active disruptions" 
+            value={disruptionsLoading ? "..." : (Array.isArray(disruptions) ? disruptions.length : 0)} 
+            subtext="From Module 3" 
+            trend={Array.isArray(disruptions) && disruptions.length > 0 ? "warn" : "none"} 
+          />
         </div>
         {pageError && (
           <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800">

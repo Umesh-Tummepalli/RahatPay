@@ -1,0 +1,17 @@
+{
+  "600017": {"area": "T. Nagar",       "city": "chennai",   "risk": 1.10, "reason": "Moderate flood history, dense urban drainage issues"},
+  "600020": {"area": "Adyar",          "city": "chennai",   "risk": 1.05, "reason": "Riverine flooding risk from Adyar river, moderate"},
+  "600032": {"area": "Velachery",      "city": "chennai",   "risk": 1.15, "reason": "High flood history — submerged in 2015, 2021 Chennai floods"},
+  "600028": {"area": "Mylapore",       "city": "chennai",   "risk": 0.95, "reason": "Elevated terrain, better drainage, historically safer"},
+  "400017": {"area": "Dharavi",        "city": "mumbai",    "risk": 1.35, "reason": "Very high flood risk — low-lying, poor drainage, 7 NDMA events in a decade"},
+  "400050": {"area": "Bandra West",    "city": "mumbai",    "risk": 0.90, "reason": "Coastal but elevated; better civic infrastructure"},
+  "400069": {"area": "Andheri",        "city": "mumbai",    "risk": 1.10, "reason": "Underpass flooding during heavy rain, moderate risk"},
+  "560034": {"area": "Koramangala",    "city": "bangalore", "risk": 0.85, "reason": "Stable zone, good drainage, low historical disruptions"},
+  "560011": {"area": "Jayanagar",      "city": "bangalore", "risk": 0.90, "reason": "Established residential area, low flood frequency"},
+  "560095": {"area": "HSR Layout",     "city": "bangalore", "risk": 1.00, "reason": "Some waterlogging events, near Bellandur lake"},
+  "110001": {"area": "Connaught Place","city": "delhi",     "risk": 1.20, "reason": "High civic disruption frequency, monsoon waterlogging"},
+  "110019": {"area": "South Delhi",    "city": "delhi",     "risk": 1.00, "reason": "Average risk — mixed history of disruptions"},
+  "110045": {"area": "Dwarka",         "city": "delhi",     "risk": 1.10, "reason": "Flood-prone low-lying sectors, moderate risk"},
+  "411038": {"area": "Kothrud",        "city": "pune",      "risk": 0.85, "reason": "Historically stable, elevated, low flood frequency"},
+  "411001": {"area": "Shivajinagar",   "city": "pune",      "risk": 1.00, "reason": "Central area, moderate civic disruption risk"}
+}

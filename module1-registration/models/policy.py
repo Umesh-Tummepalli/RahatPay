@@ -168,7 +168,7 @@ class Claim(Base):
             name="ck_claims_final_payout_cap"
         ),
         CheckConstraint(
-            "status IN ('pending','approved','rejected','paid','failed')",
+            "status IN ('pending','in_review','approved','rejected','paid','failed')",
             name="ck_claims_status"
         ),
         CheckConstraint(
@@ -255,4 +255,91 @@ class Payout(Base):
             "completed_at":         self.completed_at.isoformat() if self.completed_at else None,
             "created_at":           self.created_at.isoformat() if self.created_at else None,
             "updated_at":           self.updated_at.isoformat() if self.updated_at else None,
+        }
+
+
+class SensorLog(Base):
+    """
+    GPS & accelerometer/gyroscope readings from mobile app.
+    Used for anti-spoofing detection (Module 2) and eligibility (Module 3).
+    DPDP Act 2023: Auto-deleted after 7 days (see schema migration).
+    """
+    __tablename__ = "sensor_logs"
+
+    id                      = Column(Integer, Identity(always=True), primary_key=True)
+    rider_id                = Column(Integer, ForeignKey("riders.id", ondelete="CASCADE"), nullable=False, index=True)
+    
+    # GPS readings (meters)
+    gps_latitude            = Column(Numeric(12, 8), nullable=False)
+    gps_longitude           = Column(Numeric(12, 8), nullable=False)
+    gps_accuracy_meters     = Column(Numeric(8, 2), nullable=False)
+    
+    # Accelerometer variance (0-1 scale)
+    accelerometer_variance  = Column(Numeric(5, 4), nullable=False)
+    
+    # Gyroscope variance (0-1 scale)
+    gyroscope_variance      = Column(Numeric(5, 4), nullable=False)
+    
+    # Magnetometer variance (0-1 scale)
+    magnetometer_variance   = Column(Numeric(5, 4), nullable=True)
+    
+    # Wi-Fi SSIDs visible to device
+    wifi_ssid_count         = Column(Integer, nullable=False, default=0)
+    
+    # Full sensor payload (JSONB for extensibility)
+    sensor_payload          = Column(JSONB, nullable=False, default=dict)
+    
+    # Source device
+    device_id               = Column(String(200), nullable=True)
+    app_version             = Column(String(50), nullable=True)
+    
+    # Timestamp
+    recorded_at             = Column(DateTime(timezone=True), nullable=False)
+    created_at              = Column(DateTime(timezone=True), server_default=text("NOW()"), nullable=False)
+    
+    __table_args__ = (
+        CheckConstraint(
+            "gps_latitude BETWEEN -90 AND 90",
+            name="ck_sensor_logs_latitude"
+        ),
+        CheckConstraint(
+            "gps_longitude BETWEEN -180 AND 180",
+            name="ck_sensor_logs_longitude"
+        ),
+        CheckConstraint(
+            "gps_accuracy_meters > 0",
+            name="ck_sensor_logs_gps_accuracy"
+        ),
+        CheckConstraint(
+            "accelerometer_variance >= 0 AND accelerometer_variance <= 10",
+            name="ck_sensor_logs_accel"
+        ),
+        CheckConstraint(
+            "gyroscope_variance >= 0 AND gyroscope_variance <= 10",
+            name="ck_sensor_logs_gyro"
+        ),
+        CheckConstraint(
+            "wifi_ssid_count >= 0",
+            name="ck_sensor_logs_wifi"
+        ),
+    )
+
+    # Relationships
+    rider = relationship("Rider", back_populates="sensor_logs")
+
+    def to_dict(self):
+        return {
+            "id":                       self.id,
+            "rider_id":                 self.rider_id,
+            "gps_latitude":             float(self.gps_latitude),
+            "gps_longitude":            float(self.gps_longitude),
+            "gps_accuracy_meters":      float(self.gps_accuracy_meters),
+            "accelerometer_variance":   float(self.accelerometer_variance),
+            "gyroscope_variance":       float(self.gyroscope_variance),
+            "magnetometer_variance":    float(self.magnetometer_variance) if self.magnetometer_variance else None,
+            "wifi_ssid_count":          self.wifi_ssid_count,
+            "device_id":                self.device_id,
+            "app_version":              self.app_version,
+            "recorded_at":              self.recorded_at.isoformat() if self.recorded_at else None,
+            "created_at":               self.created_at.isoformat() if self.created_at else None,
         }

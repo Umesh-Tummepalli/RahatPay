@@ -16,7 +16,8 @@ if MODULE1_DIR not in sys.path:
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import admin
+from routes import admin, claims, triggers
+from monitor import ensure_trigger_polling_started
 
 app = FastAPI(
     title="RahatPay Module 3 - Triggers & Claims Engine",
@@ -33,6 +34,13 @@ app.add_middleware(
 )
 
 app.include_router(admin.router)
+app.include_router(claims.router)
+app.include_router(triggers.router)
+
+
+@app.on_event("startup")
+async def _start_polling_loop():
+    ensure_trigger_polling_started()
 
 @app.get("/health")
 def health_check():
