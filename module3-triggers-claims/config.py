@@ -82,6 +82,7 @@ try:
         class Config:
             env_file = _env_path
             case_sensitive = True
+            extra = "ignore"
 
     from functools import lru_cache
 

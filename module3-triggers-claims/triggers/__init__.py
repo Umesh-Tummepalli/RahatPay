@@ -1,2 +1,2 @@
-"""Compatibility exports for the Phase 3 trigger service modules."""
+"""Trigger polling and classification helpers (Module 3)."""
 
